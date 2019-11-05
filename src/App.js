@@ -26,6 +26,7 @@ const App = props => {
           <Route exact path="/" component={HomeLayout} />
           <Route exact path="/signin" component={LoginPage} />
           <Route exact path="/signup" component={SignUpPage} />
+          <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
         </Switch>
       {/* <Router>
 

@@ -3,8 +3,8 @@ import * as ROUTES from '../constant/router'
 import { withFirebase } from '../firebase';
 import {withRouter,Link} from 'react-router-dom'
 import {SignUpLink} from '../signup'
-import {compose} from 'recompose'
-import {PasswordForgetLink} from '../password-forget'
+import {compose} from 'recompose';
+import {PasswordForgetLink} from '../password-forget';
 import { TextField, Grid, Paper,Typography, Button, Avatar, Box, Checkbox, FormControlLabel } from '@material-ui/core';
 
 
@@ -67,7 +67,7 @@ const LoginPage = () => {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Sign In
             </Typography>
             <form className={classes.form} noValidate>
               <SignInForm />
@@ -85,7 +85,6 @@ const LoginPage = () => {
             </form>
           </div>
         </Grid>
-        
       </Grid>
       // <Grid container justify="center" style={{marginTop:20}}>
       //   <Grid item md={6} >
@@ -178,7 +177,8 @@ class LoginBaseForm extends Component{
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button variant="contained" color="primary" disabled={isInvalid} onClick={this.onSubmit}> Sign In</Button>
+            {/* <Button variant="contained" color="primary" disabled={isInvalid} onClick={this.onSubmit}> Sign In</Button> */}
+            <Button variant="contained" color="primary" onClick={this.onSubmit}> Sign In</Button>
             {error && <p>{error.message}</p>}
           </Grid>
         );
@@ -189,7 +189,7 @@ const SignInForm = compose(withRouter,withFirebase)(LoginBaseForm);
 
 const SignInLink = () => (
     <p style={{marginLeft:16}}>
-      Already have an account? <Link to={ROUTES.SIGN_IN}>Sign In</Link>
+      <Link to={ROUTES.SIGN_IN}>Already have an account? Sign In</Link>
     </p>
   );
  
