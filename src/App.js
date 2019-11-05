@@ -24,26 +24,15 @@ const App = props => {
       <Router>
         <Switch>
           <Route exact path="/" component={HomeLayout} />
-          <Route exact path="/signin" component={LoginPage} />
-          <Route exact path="/signup" component={SignUpPage} />
+          <Route path="/signin" component={LoginPage} />
+          <Route path="/signup" component={SignUpPage} />
           <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-        </Switch>
-      {/* <Router>
-
-        <div>
           <Navigation user={props.user} />
-          <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-          <Route path={ROUTES.SIGN_IN} component={LoginPage} />
-          <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-          <Route
-            path={ROUTES.HOME}
-            render={() => <HomePage user={props.user} />}
-          />
+          <Route path={ROUTES.HOME} render={() => <HomePage user={props.user} />}/>
           <Route path={ROUTES.ACCOUNT} component={AccountPage} />
           <Route path={ROUTES.ADMIN} component={AdminPage} />
           <Route path={ROUTES.DEVICES} component={DevicePage} />
-        </div>
-      */}
+        </Switch>
       </Router> 
     </DataTableContext.Provider>
   ) 

@@ -29,7 +29,6 @@ const classes = {
 
 const Navigation = ({user}) => {
   //console.log(props.authUser)
-
   return <MyAppBar user={user} />;
 };
 
@@ -75,9 +74,7 @@ const AuthNavItems = ({user}) => (
         <Link to={ROUTES.DEVICES}>
           <Button color="secondary">Devices</Button>
         </Link>
-
       </Grid>
-
     </Grid>
 
     {/* <Grid item>
