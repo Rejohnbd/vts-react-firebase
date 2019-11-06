@@ -28,7 +28,7 @@ const classes = {
 };
 
 const Navigation = ({user}) => {
-  //console.log(props.authUser)
+  // console.log(props.authUser)
   return <MyAppBar user={user} />;
 };
 
@@ -60,6 +60,7 @@ const NavigationNonAuth = () => (
   </ul>
 );
 
+// For Non Auth User
 const AuthNavItems = ({user}) => (
   <Grid container justify="space-between">
     <Grid item>
@@ -76,15 +77,6 @@ const AuthNavItems = ({user}) => (
         </Link>
       </Grid>
     </Grid>
-
-    {/* <Grid item>
-          
-        </Grid>
-
-        <Grid item>
-          
-        </Grid> */}
-
     <Grid item>
       <Grid container>
         <Avatar
@@ -98,6 +90,7 @@ const AuthNavItems = ({user}) => (
   </Grid>
 );
 
+// For Non Auth User
 const NonAutthItems = () => (
   <Grid container xs={12} justify="space-between">
     <Grid item>
@@ -105,7 +98,6 @@ const NonAutthItems = () => (
         <Button color="secondary">Langing</Button>
       </Link>
     </Grid>
-
     <Grid item>
       <Link to={ROUTES.SIGN_IN}>
         <Button color="secondary">SIGN IN</Button>
@@ -115,6 +107,7 @@ const NonAutthItems = () => (
 );
 
 const MyAppBar = ({user}) => {
+  console.log(user);
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -129,7 +122,6 @@ const MyAppBar = ({user}) => {
           </IconButton>
 
           <Grid container spacing={3}>
-
             <Grid item xs={1}>
               <Typography variant="h6">
                 My App
@@ -137,14 +129,11 @@ const MyAppBar = ({user}) => {
             </Grid>
 
             <Grid item xs={11}>
-
               <AuthUserContext.Consumer>
                 {authUser =>
                   authUser ? <AuthNavItems user={user} /> : <NonAutthItems />}
               </AuthUserContext.Consumer>
-
             </Grid>
-
           </Grid>
         </Toolbar>
       </AppBar>

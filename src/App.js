@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import * as ROUTES from './components/constant/router';
 import Navigation from './components/navigation';
@@ -18,17 +18,17 @@ import {tableIcons, DataTableContext} from './components/data-table';
 import HomeLayout from './components/Homepage/';
 
 const App = props => {
-
+  console.log(props.user,' From App')
   return (
     <DataTableContext.Provider value={tableIcons}>
       <Router>
         <Switch>
           <Route exact path="/" component={HomeLayout} />
-          <Route path="/signin" component={LoginPage} />
-          <Route path="/signup" component={SignUpPage} />
-          <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-          <Navigation user={props.user} />
-          <Route path={ROUTES.HOME} render={() => <HomePage user={props.user} />}/>
+          <Route exact path="/signin" component={LoginPage} />
+          <Route exact path="/signup" component={SignUpPage} />
+          <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+          {/* <Navigation user={props.user} /> */}
+          <Route exact path={ROUTES.HOME} render={() => <HomePage user={props.user} /> }/>
           <Route path={ROUTES.ACCOUNT} component={AccountPage} />
           <Route path={ROUTES.ADMIN} component={AdminPage} />
           <Route path={ROUTES.DEVICES} component={DevicePage} />

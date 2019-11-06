@@ -148,6 +148,7 @@ class LoginBaseForm extends Component{
     render() {
         const { email, password, error } = this.state;
         const isInvalid = password === '' || email === '';
+        console.log(this.state)
         return (
           <Grid container
             direction="column"

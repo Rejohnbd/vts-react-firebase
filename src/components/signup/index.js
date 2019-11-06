@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Link,withRouter} from 'react-router-dom'
-import * as ROUTES from '../constant/router'
+import {Link,withRouter} from 'react-router-dom';
+import * as ROUTES from '../constant/router';
 import {withFirebase} from '../firebase'
 import { SignInLink } from '../login';
 import {compose} from 'recompose'
