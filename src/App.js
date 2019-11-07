@@ -14,12 +14,18 @@ import {withAuthentication} from './components/session';
 import DevicePage from './components/devices';
 
 import {tableIcons, DataTableContext} from './components/data-table';
-
+// Rejohn Added
+import themeFile from './theme';
+import  MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import  createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import HomeLayout from './components/Homepage/';
+
+const theme = createMuiTheme(themeFile);
 
 const App = props => {
   console.log(props.user,' From App')
   return (
+    <MuiThemeProvider theme={theme}>
     <DataTableContext.Provider value={tableIcons}>
       <Router>
         <Switch>
@@ -28,13 +34,14 @@ const App = props => {
           <Route exact path="/signup" component={SignUpPage} />
           <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
           {/* <Navigation user={props.user} /> */}
-          <Route exact path={ROUTES.HOME} render={() => <HomePage user={props.user} /> }/>
-          <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-          <Route path={ROUTES.ADMIN} component={AdminPage} />
-          <Route path={ROUTES.DEVICES} component={DevicePage} />
+            <Route exact path={ROUTES.HOME} render={() => <HomePage user={props.user} /> }/>
+            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+            <Route path={ROUTES.ADMIN} component={AdminPage} />
+            <Route path={ROUTES.DEVICES} component={DevicePage} />
         </Switch>
-      </Router> 
+      </Router>
     </DataTableContext.Provider>
+    </MuiThemeProvider>
   ) 
   
 

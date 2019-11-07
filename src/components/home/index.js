@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component, useState, Fragment} from 'react';
 import {withAuthorization, AuthUserContext} from '../session';
 import axios from 'axios';
 import MatrialTable from 'material-table';
@@ -10,11 +10,16 @@ import {fetchAllUsers,updateUser} from '../../actions'
 import Navigation from '../navigation';
 
 // For Rejohn need
-import { makeStyles, useTheme } from '@material-ui/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
+// import { makeStyles, useTheme } from '@material-ui/styles';
+
+
+import { useMediaQuery } from '@material-ui/core';
 import Topbar from '../layouts/Topbar';
 import Sidebar from '../layouts/Sidebar';
+import clsx from 'clsx';
 
-const useStyles = makeStyles(theme => ({
+const styles = (theme) => ({
   root: {
     paddingTop: 56,
     height: '100%',
@@ -28,8 +33,25 @@ const useStyles = makeStyles(theme => ({
   content: {
     height: '100%'
   }
-}));
+});
 
+// const classes = useStyles();
+// const theme = useTheme();
+/*  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
+    defaultMatches: true
+  });
+
+  const [openSidebar, setOpenSidebar] = useState(false);
+
+  const handleSidebarOpen = () => {
+    setOpenSidebar(true);
+  };
+
+  const handleSidebarClose = () => {
+    setOpenSidebar(false);
+  };*/
+
+// const shouldOpenSidebar = isDesktop ? true : openSidebar;
 
 class HomePage extends Component {
   constructor (props) {
@@ -45,6 +67,10 @@ class HomePage extends Component {
     };
   }
 
+  // isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
+  //   defaultMatches: true
+  // });
+
   componentDidMount () {
     console.log("Sohel Test",this.props)
 
@@ -59,24 +85,51 @@ class HomePage extends Component {
 
   render () {
     console.log(this.props,'Home Index')
+    const {classes} = this.props;
     // console.log(this.props,'Home Index')
     return(
-      
-      <div>
-        <Topbar  />
-        <Sidebar
-          // onClose={handleSidebarClose}
-          // open={shouldOpenSidebar}
-          // variant={isDesktop ? 'persistent' : 'temporary'}
-          variant={'persistent'}
-        />
-        {/*<main className={classes.content}>
-          {children}
-          <Footer />
-        </main> */}
-      </div>
-      
+    <div
+      className={clsx({
+        [classes.root]: true,
+        [classes.shiftContent]: true
+      })}
+    >
+      <Topbar onSidebarOpen={true}/>
+      <Sidebar
+        // onClose={handleSidebarClose}
+        // open={shouldOpenSidebar}
+        // variant={isDesktop ? 'persistent' : 'temporary'}
+        open={true}
+        variant={ 'persistent' }
+      />
+      <main className={classes.content}>
+      <DataTableContext.Consumer>
+          {tableIcons => (
+            <Grid container justify="center" style={{padding: 20}}>
+              <Grid item md={10} sm={10}>
+                <MatrialTable
+                  icons={tableIcons}
+                  title="User List"
+                  columns={this.state.columns}
+                  data={this.props.users}
+                  options={{actionsColumnIndex: -1}}
+                  editable={{
+                    onRowUpdate: (newData, oldData) => {
+                      return new Promise (resolve => {
+                        this.updateUser (newData, oldData, resolve);
+                      });
+                    },
+                  }}
+                />
+              </Grid>
+            </Grid>
+          )}
+        </DataTableContext.Consumer>
+        {/* <Footer /> */}
+      </main>
+    </div>
     );
+
     // Sohel Sir Code
     /*return (
       <Fragment>
@@ -122,4 +175,4 @@ const mapDispatchToProps = (dispatch)=>{
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(withAuthorization (condition) (HomePage));
+export default connect(mapStateToProps,mapDispatchToProps)(withAuthorization (condition) (withStyles(styles)(HomePage)));
