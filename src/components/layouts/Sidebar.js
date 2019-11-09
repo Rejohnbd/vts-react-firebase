@@ -1,10 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
 import { Divider, Drawer } from '@material-ui/core';
 
-
+// Added By Rejohn
 import withStyles from '@material-ui/core/styles/withStyles';
 import  SidebarNav  from './SidebarNav';
 import  Profile  from './Profile';
@@ -19,6 +18,7 @@ const styles = (theme) => ({
   },
   root: {
     backgroundColor: theme.palette.white,
+    width: '240px',
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
@@ -37,8 +37,7 @@ class Sidebar extends React.Component {
   
   state = {  }
   render() { 
-    const {classes, onClose, open, variant} = this.props;
-    // console.log(classes, 'From Sidebar');
+    const {classes, onClose, open, variant, userInfo} = this.props;
     return (
       <Drawer 
       anchor="left"
@@ -48,16 +47,14 @@ class Sidebar extends React.Component {
       variant={variant}
     >
       <div
-        // {...rest}
         className={clsx(classes.root)}
+        style={{paddingTop: '70px'}}
       >
-        <Profile />
+        <Profile userInfo={userInfo} />
         <Divider className={classes.divider} />
         <SidebarNav
           className={classes.nav}
         />
-       
-        {/* <UpgradePlan /> */}
       </div>
     </Drawer>
     );
