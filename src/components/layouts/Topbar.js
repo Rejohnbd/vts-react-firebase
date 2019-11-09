@@ -8,6 +8,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 
+import siteLogo from '../../images/logo.png'
+
 // import { makeStyles, useTheme } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -23,22 +25,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Topbar = props => {
-  const { className, onSidebarOpen, ...rest } = props;
-
+  const { className, onSidebarOpen } = props;
   const classes = useStyles();
-
   const [notifications] = useState([]);
 
   return (
     <AppBar
-      {...rest}
+      // {...rest}
       className={clsx(classes.root, className)}
     >
       <Toolbar>
         <RouterLink to="/">
           <img
             alt="Logo"
-            src="/images/logos/logo--white.svg"
+            src={siteLogo}
           />
         </RouterLink>
         <div className={classes.flexGrow} />

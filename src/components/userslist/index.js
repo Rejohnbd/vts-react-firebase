@@ -54,7 +54,7 @@ const styles = (theme) => ({
 
 // const shouldOpenSidebar = isDesktop ? true : openSidebar;
 
-class HomePage extends Component {
+class UserListPage extends Component {
   constructor (props) {
     super (props);
     this.state = {
@@ -72,7 +72,6 @@ class HomePage extends Component {
 
   onResize = () => {
     let winWidth = $(window).width();
-    console.log('called')
     if(winWidth < 1280){
         this.setState({
           isDesktop: false
@@ -85,7 +84,6 @@ class HomePage extends Component {
   }
  
   handleSidebarOpen = () => {
-    console.log('Clicked')
     this.setState({
       setOpenSidebar: true
     })
@@ -110,7 +108,7 @@ class HomePage extends Component {
   };
 
   render () {
-    console.log(this.props,'Home Index')
+    // console.log(this.props,'Home Index')
     const {classes} = this.props;
     return(
       <Fragment>
@@ -137,8 +135,7 @@ class HomePage extends Component {
             variant={ (this.state.isDesktop) ? 'persistent' : 'temporary'  }
           />
           <main className={classes.content}>
-            <h1>HHHHHHHHHHHHHHHHHHHHHHHHH</h1>
-            {/* <DataTableContext.Consumer>
+            <DataTableContext.Consumer>
                 {tableIcons => (
                   <Grid container justify="center" style={{padding: 20}}>
                     <Grid item md={10} sm={10}>
@@ -159,7 +156,7 @@ class HomePage extends Component {
                     </Grid>
                   </Grid>
                 )}
-              </DataTableContext.Consumer> */}
+              </DataTableContext.Consumer>
             {/* <Footer /> */}
           </main>
         </div>
@@ -212,4 +209,4 @@ const mapDispatchToProps = (dispatch)=>{
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(withAuthorization (condition) (withStyles(styles)(HomePage)));
+export default connect(mapStateToProps,mapDispatchToProps)(withAuthorization (condition) (withStyles(styles)(UserListPage)));

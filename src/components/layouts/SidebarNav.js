@@ -1,11 +1,21 @@
-/* eslint-disable react/no-multi-comp */
-/* eslint-disable react/display-name */
 import React, { forwardRef } from 'react';
-import { NavLink as RouterLink } from 'react-router-dom';
+import { NavLink as RouterLink, Link } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { List, ListItem, Button, colors } from '@material-ui/core';
+
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import PeopleIcon from '@material-ui/icons/People';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import TextFieldsIcon from '@material-ui/icons/TextFields';
+import ImageIcon from '@material-ui/icons/Image';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import SettingsIcon from '@material-ui/icons/Settings';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import PermDeviceInformation from '@material-ui/icons/PermDeviceInformation';
+import * as ROUTES from '../constant/router';
+
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -14,52 +24,133 @@ const useStyles = makeStyles(theme => ({
     paddingTop: 0,
     paddingBottom: 0
   },
-  button: {
+  navlink: {
     color: colors.blueGrey[800],
     padding: '10px 8px',
-    justifyContent: 'flex-start',
+    // justifyContent: 'flex-start',
+    display: 'flex',
     textTransform: 'none',
     letterSpacing: 0,
     width: '100%',
-    // fontWeight: theme.typography.fontWeightMedium
+    fontWeight: theme.typography.fontWeightMedium
   },
   icon: {
-    // color: theme.palette.icon,
+    color: theme.palette.icon,
     width: 24,
     height: 24,
     display: 'flex',
     alignItems: 'center',
-    // marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1)
   },
   active: {
-    // color: theme.palette.primary.main,
-    // fontWeight: theme.typography.fontWeightMedium,
+    color: theme.palette.primary.main,
+    fontWeight: theme.typography.fontWeightMedium,
     '& $icon': {
-      // color: theme.palette.primary.main
+      color: theme.palette.primary.main
     }
   }
 }));
 
-const CustomRouterLink = forwardRef((props, ref) => (
-  <div
-    ref={ref}
-    style={{ flexGrow: 1 }}
-  >
-    <RouterLink {...props} />
-  </div>
-));
+// const CustomRouterLink = forwardRef((props, ref) => (
+//   <div
+//     ref={ref}
+//     style={{ flexGrow: 1 }}
+//   >
+//     <RouterLink {...props} />
+//   </div>
+// ));
+
+const pages = [
+  // {
+  //   title: 'Dashboard',
+  //   href: '/dashboard',
+  //   icon: <DashboardIcon />
+  // },
+  {
+    title: 'Users',
+    href: '/users_list',
+    icon: <PeopleIcon />
+  },
+  {
+    title: 'Products',
+    href: '/products',
+    icon: <ShoppingBasketIcon />
+  },
+  {
+    title: 'Authentication',
+    href: '/sign-in',
+    icon: <LockOpenIcon />
+  },
+  {
+    title: 'Typography',
+    href: '/typography',
+    icon: <TextFieldsIcon />
+  },
+  {
+    title: 'Icons',
+    href: '/icons',
+    icon: <ImageIcon />
+  },
+  {
+    title: 'Account',
+    href: '/account',
+    icon: <AccountBoxIcon />
+  },
+  {
+    title: 'Settings',
+    href: '/settings',
+    icon: <SettingsIcon />
+  }
+];
 
 const SidebarNav = props => {
-  const { pages, className, ...rest } = props;
-
+  const { className } = props;
   const classes = useStyles();
 
   return (
     <List
-      {...rest}
       className={clsx(classes.root, className)}
     >
-      {pages.map(page => (
+      <ListItem
+          className={classes.item}
+          disableGutters
+          key='Dashboard'
+        >
+          <Link
+            className={classes.navlink}
+            to={ROUTES.HOME}
+          >
+            <div className={classes.icon}><DashboardIcon /></div>
+            Dashboard
+          </Link>
+      </ListItem>
+      <ListItem
+          className={classes.item}
+          disableGutters
+          key='Users'
+        >
+          <Link
+            className={classes.navlink}
+            to={ROUTES.USERSLIST}
+          >
+            <div className={classes.icon}><PeopleIcon /></div>
+            Users List
+          </Link>
+      </ListItem>
+      <ListItem
+          className={classes.item}
+          disableGutters
+          key='Devices'
+        >
+          <Link
+            className={classes.navlink}
+            to={ROUTES.DEVICES}
+          >
+            <div className={classes.icon}><PermDeviceInformation /></div>
+            Devices List
+          </Link>
+      </ListItem>
+      {/* {pages.map(page => (
         <ListItem
           className={classes.item}
           disableGutters
@@ -75,7 +166,7 @@ const SidebarNav = props => {
             {page.title}
           </Button>
         </ListItem>
-      ))}
+      ))} */}
     </List>
   );
 };

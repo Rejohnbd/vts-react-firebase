@@ -7,6 +7,7 @@ import SignUpPage from './components/signup';
 import LoginPage from './components/login';
 import PasswordForgetPage from './components/password-forget';
 import HomePage from './components/home';
+import UserListPage from './components/userslist';
 import AccountPage from './components/account';
 import AdminPage from './components/admin';
 import './App.css';
@@ -36,6 +37,7 @@ const App = props => {
           {/* <Navigation user={props.user} /> */}
             <Route exact path={ROUTES.HOME} render={() => <HomePage user={props.user} /> }/>
             <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+            <Route path={ROUTES.USERSLIST} component={UserListPage} />
             <Route path={ROUTES.ADMIN} component={AdminPage} />
             <Route path={ROUTES.DEVICES} component={DevicePage} />
         </Switch>
