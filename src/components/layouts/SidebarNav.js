@@ -3,7 +3,7 @@ import { NavLink as RouterLink, Link } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-import { List, ListItem, Button, colors } from '@material-ui/core';
+import { Divider, List, ListItem, colors } from '@material-ui/core';
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import PeopleIcon from '@material-ui/icons/People';
@@ -15,6 +15,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import PermDeviceInformation from '@material-ui/icons/PermDeviceInformation';
 import * as ROUTES from '../constant/router';
+import Signout from '../signout';
 
 
 const useStyles = makeStyles(theme => ({
@@ -42,6 +43,9 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     marginRight: theme.spacing(1)
   },
+  divider: {
+    margin: theme.spacing(2, 0)
+  },
   active: {
     color: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,
@@ -66,21 +70,21 @@ const pages = [
   //   href: '/dashboard',
   //   icon: <DashboardIcon />
   // },
-  {
-    title: 'Users',
-    href: '/users_list',
-    icon: <PeopleIcon />
-  },
-  {
-    title: 'Products',
-    href: '/products',
-    icon: <ShoppingBasketIcon />
-  },
-  {
-    title: 'Authentication',
-    href: '/sign-in',
-    icon: <LockOpenIcon />
-  },
+  // {
+  //   title: 'Users',
+  //   href: '/users_list',
+  //   icon: <PeopleIcon />
+  // },
+  // {
+  //   title: 'Products',
+  //   href: '/products',
+  //   icon: <ShoppingBasketIcon />
+  // },
+  // {
+  //   title: 'Authentication',
+  //   href: '/sign-in',
+  //   icon: <LockOpenIcon />
+  // },
   {
     title: 'Typography',
     href: '/typography',
@@ -150,30 +154,29 @@ const SidebarNav = props => {
             Devices List
           </Link>
       </ListItem>
-      {/* {pages.map(page => (
-        <ListItem
+      <Divider className={classes.divider} />
+      <Signout />
+      {/* <ListItem
           className={classes.item}
           disableGutters
-          key={page.title}
+          key='Logout'
         >
           <Button
             activeClassName={classes.active}
             className={classes.button}
-            component={CustomRouterLink}
-            to={page.href}
+            // component={CustomRouterLink}
+            // to={page.href}
           >
-            <div className={classes.icon}>{page.icon}</div>
-            {page.title}
+            <div className={classes.icon}><LockOpenIcon /></div>
+            Sign Out
           </Button>
-        </ListItem>
-      ))} */}
+      </ListItem> */}
     </List>
   );
 };
 
 SidebarNav.propTypes = {
-  className: PropTypes.string,
-  pages: PropTypes.array.isRequired
+  className: PropTypes.string
 };
 
 export default SidebarNav;

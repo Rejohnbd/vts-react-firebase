@@ -119,13 +119,13 @@ class DevicePage extends Component {
             userInfo={this.props.userInfo}
           />
           <main className={classes.content}>
-        <div>
+        {/* <div> */}
           <Tabs value={this.state.value} onChange={this.handleTabChange} aria-label="simple tabs example" indicatorColor="primary"
           textColor="primary" centered>
           <Tab label="ALL" {...this.a11yProps(0)} />
           <Tab label="ASSIGNED" {...this.a11yProps(1)} />
           <Tab label="UN-ASSIGNED" {...this.a11yProps(2)} />
-        </Tabs> 
+          </Tabs> 
 
           <TabPanel value={this.state.value} index={0} 
             data={this.props.devices} 
@@ -156,7 +156,7 @@ class DevicePage extends Component {
           >
             UN-ASSIGNED
           </TabPanel>
-          </div>
+          {/* </div> */}
           </main>
         </div>
       </Fragment>

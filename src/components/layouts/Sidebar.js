@@ -41,7 +41,7 @@ class Sidebar extends React.Component {
     return (
       <Drawer 
       anchor="left"
-      classes={ classes.drawer }
+      // classes={ classes.drawer }
       onClose={onClose}
       open={open}
       variant={variant}

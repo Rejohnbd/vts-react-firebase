@@ -120,7 +120,7 @@ class UserListPage extends Component {
             <DataTableContext.Consumer>
                 {tableIcons => (
                   <Grid container justify="center" style={{padding: 20}}>
-                    <Grid item md={10} sm={10}>
+                    <Grid item md={12} sm={12}>
                       <MatrialTable
                         icons={tableIcons}
                         title="User List"

@@ -6,7 +6,7 @@ import {DataTableContext} from '../data-table';
 import {Grid} from '@material-ui/core';
 
 import {connect} from 'react-redux'
-import {fetchAllUsers,updateUser} from '../../actions'
+import {fetchAllUsers, fetchAllDevices} from '../../actions'
 import Navigation from '../navigation';
 
 // For Rejohn need Start
@@ -15,6 +15,14 @@ import $ from 'jquery';
 import ReactResizeDetector from 'react-resize-detector';
 import Topbar from '../layouts/Topbar';
 import Sidebar from '../layouts/Sidebar';
+import TotalUsers from '../layouts/TotalUsers';
+import ActiveUsers from '../layouts/ActiveUsers';
+import InactiveUsers from '../layouts/InactiveUsers';
+import AdminUsers from '../layouts/AdminUsers';
+import TotalDevices from '../layouts/TotalDevices';
+import ActiveDevices from '../layouts/ActiveDevices';
+import InactiveDevices from '../layouts/InactiveDevices';
+
 import clsx from 'clsx';
 
 const styles = (theme) => ({
@@ -27,6 +35,9 @@ const styles = (theme) => ({
   },
   content: {
     height: '100%'
+  },
+  gridTopMargin: {
+    marginTop: '20px'
   }
 });
 // For Rejohn need End
@@ -46,7 +57,6 @@ class HomePage extends Component {
   // For Rejohn need Start
   onResize = () => {
     let winWidth = $(window).width();
-    console.log('called')
     if(winWidth < 1280){
         this.setState({
           isDesktop: false
@@ -59,7 +69,6 @@ class HomePage extends Component {
   }
  
   handleSidebarOpen = () => {
-    console.log('Clicked')
     this.setState({
       setOpenSidebar: true
     })
@@ -78,6 +87,9 @@ class HomePage extends Component {
     if(this.props.users.length===0){
       this.props.getUsers();
     }
+    if(this.props.devices.length===0){
+      this.props.getAllDevices();
+    }
   }
 
   updateUser = (newData, oldData, resolve) => {
@@ -88,7 +100,9 @@ class HomePage extends Component {
     console.log(this.props,'Home Index')
     // For Rejohn need Start
     const {classes} = this.props;
+    console.log(this.props.devices,'...............')
     // For Rejohn need End
+    
     return(
       <Fragment>
           <div
@@ -115,9 +129,32 @@ class HomePage extends Component {
             userInfo={this.props.userInfo}
           />
           <main className={classes.content}>
-            <h1>HHHHHHHHHHHHHHHHHHHHHHHHH</h1>
+            <Grid container className={classes.gridTopMargin} spacing={2}>
+              <Grid item lg={3} sm={6} xl={3} xs={12}>
+                <TotalUsers homePageUser={this.props.users} />
+              </Grid>
+              <Grid item lg={3} sm={6} xl={3} xs={12}>
+                <ActiveUsers homePageUser={this.props.users} />
+              </Grid>
+              <Grid item lg={3} sm={6} xl={3} xs={12}>
+                <InactiveUsers homePageUser={this.props.users} />
+              </Grid>
+              <Grid item lg={3} sm={6} xl={3} xs={12}>
+                <AdminUsers homePageUser={this.props.users} />
+              </Grid>
+            </Grid>
             
-            {/* <Footer /> */}
+            <Grid container className={classes.gridTopMargin} spacing={2}>
+              <Grid item lg={4} sm={4} xl={4} xs={12}>
+                <TotalDevices />
+              </Grid>
+              <Grid item lg={4} sm={4} xl={4} xs={12}>
+                <ActiveDevices />
+              </Grid>
+              <Grid item lg={4} sm={4} xl={4} xs={12}>
+                <InactiveDevices />
+              </Grid>
+            </Grid>
           </main>
         </div>
       </Fragment>
@@ -165,7 +202,8 @@ const mapStateToProps = (state)=>{
 const mapDispatchToProps = (dispatch)=>{
   return {
     getUsers:()=>dispatch(fetchAllUsers()),
-    updateUser:(newData, oldData, resolve)=>dispatch(updateUser(newData,oldData,resolve))
+    // updateUser:(newData, oldData, resolve)=>dispatch(updateUser(newData,oldData,resolve)),
+    getAllDevices:()=>dispatch(fetchAllDevices()),
   }
 }
 

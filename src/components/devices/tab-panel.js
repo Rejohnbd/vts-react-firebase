@@ -64,7 +64,7 @@ class TabPanel extends Component {
         {...other}
       >
         <Grid container justify="center">
-          <Grid item md={10} style={{ padding: 20 }}>
+          <Grid item md={12} style={{ padding: 20 }}>
             <DataTableContext.Consumer>
               {icons => (
                 <MaterialTable
