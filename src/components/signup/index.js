@@ -3,7 +3,8 @@ import {Link,withRouter} from 'react-router-dom';
 import * as ROUTES from '../constant/router';
 import {withFirebase} from '../firebase'
 import { SignInLink } from '../login';
-import {compose} from 'recompose'
+import {compose} from 'recompose';
+import axios from 'axios';
 import { Grid,Paper, Button ,TextField, Avatar, Box, Typography } from '@material-ui/core';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 import LoginBg from '../../images/login-bg.jpg';
+import Axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -119,8 +121,18 @@ class SignUpFormBase extends Component{
         this.props.firebase
             .createUserWithEmailAndPassword(email,passwordOne)
           .then(authUser => {
+            let user = {
+              email: email
+            }
             this.setState({ ...INITIAL_STATE });
-            this.props.history.push(ROUTES.HOME)
+            axios.post("http://167.71.227.221:2255/api/users/", user)
+            .then(response=>{
+              this.props.history.push(ROUTES.SIGN_IN)
+            })
+            .catch(err => {
+              console.log(err)
+            })
+            
           })
           .catch(error => {
             this.setState({ error });

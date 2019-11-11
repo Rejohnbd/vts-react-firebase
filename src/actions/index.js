@@ -7,7 +7,8 @@ import {
   DELETE_DEVICE,
   ASSIGN_DEVICE,
   UNASSIGN_DEVICE,
-  GET_USER
+  GET_USER,
+  ADD_USER
 } from "./types";
 import axios from "axios";
 
@@ -22,6 +23,10 @@ const fetchUsersAction = data => {
 const fetchDevicesAction = data => {
   return { type: FETCH_DEVICES, payload: data };
 };
+
+const postUserAction = data => {
+  return { type: ADD_USER, payload: data };
+}
 
 const updateUserAction = (newData, oldData) => {
   return { type: UPDATE_USER, payload: { newData: newData, oldData: oldData } };
@@ -59,6 +64,19 @@ const unAssignDeviceAction = (newData, oldData) => {
     payload: { newData: newData, oldData: oldData }
   };
 };
+
+export const registerUsers = (user) => {
+  return dispatch => {
+    return axios
+      .post(usersUrl, user)
+      .then(response => {
+        dispatch(postUserAction(response.data));
+      })
+      .catch(err => {
+        throw err;
+      })
+  }
+} 
 
 export const fetchAllUsers = () => {
   return dispatch => {
