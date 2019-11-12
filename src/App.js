@@ -26,6 +26,11 @@ const theme = createMuiTheme(themeFile);
 
 const App = props => {
   console.log(props.user,' From App')
+  // const renderContent = (props.user.is_admin) ? (
+  //   'Admin is True'
+  // ) : (
+  //   'Admin is False'
+  // );
   return (
     <MuiThemeProvider theme={theme}>
     <DataTableContext.Provider value={tableIcons}>
@@ -39,16 +44,25 @@ const App = props => {
               <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
             </Fragment>
           ): (
-            <Fragment>
-              <Route exact path={ROUTES.HOME} render={() => <HomePage userInfo={props.user} /> }/>
-              <Route exact path={ROUTES.USERSLIST} render={() => <UserListPage userInfo={props.user} /> } />
-              <Route path={ROUTES.DEVICES} render={() => <DevicePage userInfo={props.user} /> }/>
+            (props.user.is_admin)?(
+              <Fragment>
+                <Route exact path={ROUTES.HOME} render={() => <HomePage userInfo={props.user} /> }/>
+                <Route exact path={ROUTES.USERSLIST} render={() => <UserListPage userInfo={props.user} /> } />
+                <Route exact path={ROUTES.DEVICES} render={() => <DevicePage userInfo={props.user} /> }/>
 
-              <Route render={() => <NotFound userInfo={props.user} /> }/>
-              <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-              <Route path={ROUTES.ADMIN} component={AdminPage} />
-            </Fragment>
+                <Route render={() => <NotFound userInfo={props.user} /> }/>
+                <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+                <Route path={ROUTES.ADMIN} component={AdminPage} />
+              </Fragment>
+            ):(
+              <Fragment>
+                <Route exact path={ROUTES.HOME} render={() => <HomePage userInfo={props.user} /> }/>
+                <Route render={() => <NotFound userInfo={props.user} /> }/>
+              </Fragment>
+            )
+            
           )}
+          
           
           {/* <Navigation user={props.user} /> */}
             

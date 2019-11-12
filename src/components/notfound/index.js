@@ -23,6 +23,8 @@ import TotalDevices from '../layouts/TotalDevices';
 import ActiveDevices from '../layouts/ActiveDevices';
 import InactiveDevices from '../layouts/InactiveDevices';
 
+import NotFoundImage from '../../images/notfound.png';
+
 import clsx from 'clsx';
 
 const styles = (theme) => ({
@@ -30,14 +32,14 @@ const styles = (theme) => ({
     paddingTop: '56px',
     height: '100%',
   },
-  shiftContent: {
-    paddingLeft: 240
-  },
   content: {
-    height: '100%'
+    textAlign: 'center'
   },
-  gridTopMargin: {
-    marginTop: '20px'
+  image: {
+    marginTop: 50,
+    display: 'inline-block',
+    maxWidth: '100%',
+    width: 560
   }
 });
 // For Rejohn need End
@@ -119,12 +121,32 @@ class NotFound extends Component {
             userInfo={this.props.userInfo}
           />
           <main className={classes.content}>
-            <Grid container className={classes.gridTopMargin} spacing={2}>
-              <Grid item sm={9} xs={12}>
-                <Typography variant="h1" align="center">404: The page you are looking for isn’t here</Typography>
-                <Typography variant="h6" align="center">You either tried some shady route or you came here by mistake. Whichever it is, try using the navigation</Typography>
+            <Grid
+                container
+                justify="center"
+                spacing={2}
+              >
+                <Grid
+                  item
+                  lg={6}
+                  xs={12}
+                >
+                  <div className={classes.content}>
+                    <Typography variant="h1">
+                      404: The page you are looking for isn’t here
+                    </Typography>
+                    <Typography variant="subtitle2">
+                      You either tried some shady route or you came here by mistake.
+                      Whichever it is, try using the navigation
+                    </Typography>
+                    <img
+                      alt="Under development"
+                      className={classes.image}
+                      src={NotFoundImage}
+                    />
+                  </div>
+                </Grid>
               </Grid>
-            </Grid>
           </main>
         </div>
       </Fragment>
