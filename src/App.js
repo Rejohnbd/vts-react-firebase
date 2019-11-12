@@ -17,9 +17,10 @@ import DevicePage from './components/devices';
 import {tableIcons, DataTableContext} from './components/data-table';
 // Rejohn Added
 import themeFile from './theme';
-import  MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import  createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import HomeLayout from './components/Homepage/';
+import NotFound from './components/notfound';
 
 const theme = createMuiTheme(themeFile);
 
@@ -31,15 +32,26 @@ const App = props => {
       <Router>
         <Switch>
           <Route exact path="/" component={HomeLayout} />
-          <Route exact path="/signin" component={LoginPage} />
-          <Route exact path="/signup" component={SignUpPage} />
-          <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+          {!props.user ? (
+            <Fragment>
+              <Route exact path="/signin" component={LoginPage} />
+              <Route exact path="/signup" component={SignUpPage} />
+              <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+            </Fragment>
+          ): (
+            <Fragment>
+              <Route exact path={ROUTES.HOME} render={() => <HomePage userInfo={props.user} /> }/>
+              <Route exact path={ROUTES.USERSLIST} render={() => <UserListPage userInfo={props.user} /> } />
+              <Route path={ROUTES.DEVICES} render={() => <DevicePage userInfo={props.user} /> }/>
+
+              <Route render={() => <NotFound userInfo={props.user} /> }/>
+              <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+              <Route path={ROUTES.ADMIN} component={AdminPage} />
+            </Fragment>
+          )}
+          
           {/* <Navigation user={props.user} /> */}
-            <Route exact path={ROUTES.HOME} render={() => <HomePage userInfo={props.user} /> }/>
-            <Route exact path={ROUTES.USERSLIST} render={() => <UserListPage userInfo={props.user} /> } />
-            <Route path={ROUTES.DEVICES} render={() => <DevicePage userInfo={props.user} /> }/>
-            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-            <Route path={ROUTES.ADMIN} component={AdminPage} />
+            
         </Switch>
       </Router>
     </DataTableContext.Provider>
