@@ -8,3 +8,4 @@ export const PASSWORD_FORGET = '/pw-forget';
 export const DEVICES = '/devices';
 // Added by Rejohn
 export const USERSLIST = '/users_list';
+export const USERHOME = '/dashboard';

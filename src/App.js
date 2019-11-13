@@ -21,6 +21,7 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import HomeLayout from './components/Homepage/';
 import NotFound from './components/notfound';
+import UserHome from './components/Users/UserHome';
 
 const theme = createMuiTheme(themeFile);
 
@@ -56,7 +57,7 @@ const App = props => {
               </Fragment>
             ):(
               <Fragment>
-                <Route exact path={ROUTES.HOME} render={() => <HomePage userInfo={props.user} /> }/>
+                <Route exact path={ROUTES.USERHOME} render={() => <UserHome userInfo={props.user} /> }/>
                 <Route render={() => <NotFound userInfo={props.user} /> }/>
               </Fragment>
             )

@@ -121,7 +121,7 @@ class NotFound extends Component {
             userInfo={this.props.userInfo}
           />
           <main className={classes.content}>
-            <Grid
+            {/* <Grid
                 container
                 justify="center"
                 spacing={2}
@@ -146,7 +146,7 @@ class NotFound extends Component {
                     />
                   </div>
                 </Grid>
-              </Grid>
+              </Grid> */}
           </main>
         </div>
       </Fragment>
