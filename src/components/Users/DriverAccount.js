@@ -1,5 +1,5 @@
-import React, {Component, Fragment} from 'react';
-import {withAuthorization} from '../session';
+import React, {Component, useState, Fragment} from 'react';
+import {withAuthorization, AuthUserContext} from '../session';
 import {Grid} from '@material-ui/core';
 import {connect} from 'react-redux'
 import {fetchAllUsers, fetchAllDevices} from '../../actions'
@@ -10,11 +10,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import $ from 'jquery';
 import ReactResizeDetector from 'react-resize-detector';
 import Topbar from '../layouts/Topbar';
-import Sidebar from '../layouts/Sidebar';
-import TotalUsers from '../layouts/TotalUsers';
-import ActiveUsers from '../layouts/ActiveUsers';
-import InactiveUsers from '../layouts/InactiveUsers';
-import AdminUsers from '../layouts/AdminUsers';
+import UserSidebar from '../layouts/UserSidebar';
+import DriverAccountProfile from './DriverAccountProfile';
+import DriverAccountDetails from './DriverAccountDetails';
 import TotalDevices from '../layouts/TotalDevices';
 import ActiveDevices from '../layouts/ActiveDevices';
 import InactiveDevices from '../layouts/InactiveDevices';
@@ -38,7 +36,7 @@ const styles = (theme) => ({
 });
 // For Rejohn need End
 
-class HomePage extends Component {
+class DriverAccount extends Component {
   constructor (props) {
     super (props);
     this.state = {
@@ -78,7 +76,9 @@ class HomePage extends Component {
   // For Rejohn need End
 
   componentDidMount () {
-    console.log("Sohel Test",this.props)
+    const { id } = this.props.match.params;
+    console.log(id, 'Driver Edit Id')
+
     if(this.props.users.length===0){
       this.props.getUsers();
     }
@@ -92,7 +92,6 @@ class HomePage extends Component {
   };
 
   render () {
-    console.log(this.props,'Home Index')
     // For Rejohn need Start
     const {classes} = this.props;
     console.log(this.props.devices,'...............')
@@ -117,72 +116,26 @@ class HomePage extends Component {
           >
           <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />  
           <Topbar onSidebarOpen={this.handleSidebarOpen}/>
-          <Sidebar
+          <UserSidebar
             onClose={this.handleSidebarClose}
             open={this.state.setOpenSidebar}
             variant={ (this.state.isDesktop) ? 'persistent' : 'temporary'  }
             userInfo={this.props.userInfo}
           />
           <main className={classes.content}>
-            <Grid container className={classes.gridTopMargin} spacing={2}>
-              <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <TotalUsers homePageUser={this.props.users} />
+            <Grid container className={classes.gridTopMargin} spacing={2} >
+              <Grid item lg={4} md={6} xl={4} xs={12} >
+                <DriverAccountProfile userInfo={this.props.userInfo} />
               </Grid>
-              <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <ActiveUsers homePageUser={this.props.users} />
-              </Grid>
-              <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <InactiveUsers homePageUser={this.props.users} />
-              </Grid>
-              <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <AdminUsers homePageUser={this.props.users} />
-              </Grid>
-            </Grid>
-            
-            <Grid container className={classes.gridTopMargin} spacing={2}>
-              <Grid item lg={4} sm={4} xl={4} xs={12}>
-                <TotalDevices />
-              </Grid>
-              <Grid item lg={4} sm={4} xl={4} xs={12}>
-                <ActiveDevices />
-              </Grid>
-              <Grid item lg={4} sm={4} xl={4} xs={12}>
-                <InactiveDevices />
+              <Grid item lg={8} md={6} xl={8} xs={12}>
+                <DriverAccountDetails />
               </Grid>
             </Grid>
           </main>
         </div>
       </Fragment>
-    
     );
 
-    // Sohel Sir Code
-    /*return (
-      <Fragment>
-        <DataTableContext.Consumer>
-          {tableIcons => (
-            <Grid container justify="center" style={{padding: 20}}>
-              <Grid item md={10} sm={10}>
-                <MatrialTable
-                  icons={tableIcons}
-                  title="User List"
-                  columns={this.state.columns}
-                  data={this.props.users}
-                  options={{actionsColumnIndex: -1}}
-                  editable={{
-                    onRowUpdate: (newData, oldData) => {
-                      return new Promise (resolve => {
-                        this.updateUser (newData, oldData, resolve);
-                      });
-                    },
-                  }}
-                />
-              </Grid>
-            </Grid>
-          )}
-        </DataTableContext.Consumer>
-      </Fragment>
-    );*/
   }
 }
 
@@ -197,8 +150,9 @@ const mapStateToProps = (state)=>{
 const mapDispatchToProps = (dispatch)=>{
   return {
     getUsers:()=>dispatch(fetchAllUsers()),
+    // updateUser:(newData, oldData, resolve)=>dispatch(updateUser(newData,oldData,resolve)),
     getAllDevices:()=>dispatch(fetchAllDevices()),
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(withAuthorization (condition) (withStyles(styles)(HomePage)));
+export default connect(mapStateToProps,mapDispatchToProps)(withAuthorization (condition) (withStyles(styles)(DriverAccount)));

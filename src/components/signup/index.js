@@ -12,7 +12,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 import LoginBg from '../../images/login-bg.jpg';
-import Axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -114,7 +113,7 @@ class SignUpFormBase extends Component{
     onSubmit = event=>{
         event.preventDefault();
 
-        const { username, email, passwordOne } = this.state;
+        const { email, passwordOne } = this.state;
 
         // console.log(this.props.firebase.createUserWithEmailAndPassword)
 

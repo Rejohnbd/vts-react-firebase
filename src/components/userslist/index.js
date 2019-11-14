@@ -1,13 +1,10 @@
-import React, {Component, useState, Fragment} from 'react';
-import {withAuthorization, AuthUserContext} from '../session';
-import axios from 'axios';
+import React, {Component, Fragment} from 'react';
+import {withAuthorization} from '../session';
 import MatrialTable from 'material-table';
 import {DataTableContext} from '../data-table';
 import {Grid} from '@material-ui/core';
-
 import {connect} from 'react-redux'
 import {fetchAllUsers,updateUser} from '../../actions'
-import Navigation from '../navigation';
 
 // For Rejohn need Start
 import withStyles from '@material-ui/core/styles/withStyles';

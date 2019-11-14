@@ -1,12 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
 import { Divider, Drawer } from '@material-ui/core';
 
 // Added By Rejohn
 import withStyles from '@material-ui/core/styles/withStyles';
 import UserSidebarNav  from './UserSidebarNav';
-import Profile  from './Profile';
+import UserProfile  from './UserProfile';
 
 const styles = (theme) => ({
   drawer: {
@@ -50,11 +49,11 @@ class UserSidebar extends React.Component {
         className={clsx(classes.root)}
         style={{paddingTop: '70px'}}
       >
-        {/* <Profile userInfo={userInfo} /> */}
+        <UserProfile userInfo={userInfo} />
         <Divider className={classes.divider} />
-        {/* <UserSidebarNav
+        <UserSidebarNav
           className={classes.nav}
-        /> */}
+        />
       </div>
     </Drawer>
     );

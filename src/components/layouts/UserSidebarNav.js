@@ -7,12 +7,10 @@ import { Divider, List, ListItem, colors } from '@material-ui/core';
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import ImageIcon from '@material-ui/icons/Image';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SettingsIcon from '@material-ui/icons/Settings';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
 import PermDeviceInformation from '@material-ui/icons/PermDeviceInformation';
 import * as ROUTES from '../constant/router';
 import Signout from '../signout';
@@ -55,66 +53,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// const CustomRouterLink = forwardRef((props, ref) => (
-//   <div
-//     ref={ref}
-//     style={{ flexGrow: 1 }}
-//   >
-//     <RouterLink {...props} />
-//   </div>
-// ));
 
-const pages = [
-  // {
-  //   title: 'Dashboard',
-  //   href: '/dashboard',
-  //   icon: <DashboardIcon />
-  // },
-  // {
-  //   title: 'Users',
-  //   href: '/users_list',
-  //   icon: <PeopleIcon />
-  // },
-  // {
-  //   title: 'Products',
-  //   href: '/products',
-  //   icon: <ShoppingBasketIcon />
-  // },
-  // {
-  //   title: 'Authentication',
-  //   href: '/sign-in',
-  //   icon: <LockOpenIcon />
-  // },
-  {
-    title: 'Typography',
-    href: '/typography',
-    icon: <TextFieldsIcon />
-  },
-  {
-    title: 'Icons',
-    href: '/icons',
-    icon: <ImageIcon />
-  },
-  {
-    title: 'Account',
-    href: '/account',
-    icon: <AccountBoxIcon />
-  },
-  {
-    title: 'Settings',
-    href: '/settings',
-    icon: <SettingsIcon />
-  }
-];
 
 const UserSidebarNav = props => {
   const { className } = props;
   const classes = useStyles();
 
   return (
-    <List
-      className={clsx(classes.root, className)}
-    >
+    <List className={clsx(classes.root, className)}>
       <ListItem
           className={classes.item}
           disableGutters
@@ -122,7 +68,7 @@ const UserSidebarNav = props => {
         >
           <Link
             className={classes.navlink}
-            to={ROUTES.HOME}
+            to={ROUTES.USERHOME}
           >
             <div className={classes.icon}><DashboardIcon /></div>
             Dashboard
@@ -135,42 +81,27 @@ const UserSidebarNav = props => {
         >
           <Link
             className={classes.navlink}
-            to={ROUTES.USERSLIST}
+            to={ROUTES.USERDEVICES}
           >
             <div className={classes.icon}><DirectionsCarIcon /></div>
             All Vehicle 
           </Link>
       </ListItem>
+      <Divider className={classes.divider} />
       <ListItem
           className={classes.item}
           disableGutters
-          key='Devices'
+          key='Profile'
         >
           <Link
             className={classes.navlink}
-            to={ROUTES.DEVICES}
+            to={ROUTES.USERPROFILE}
           >
-            <div className={classes.icon}><PermDeviceInformation /></div>
-            Devices List
+            <div className={classes.icon}><AccountBoxIcon /></div>
+            User Profile
           </Link>
       </ListItem>
-      <Divider className={classes.divider} />
       <Signout />
-      {/* <ListItem
-          className={classes.item}
-          disableGutters
-          key='Logout'
-        >
-          <Button
-            activeClassName={classes.active}
-            className={classes.button}
-            // component={CustomRouterLink}
-            // to={page.href}
-          >
-            <div className={classes.icon}><LockOpenIcon /></div>
-            Sign Out
-          </Button>
-      </ListItem> */}
     </List>
   );
 };

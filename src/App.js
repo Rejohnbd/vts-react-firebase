@@ -22,6 +22,11 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import HomeLayout from './components/Homepage/';
 import NotFound from './components/notfound';
 import UserHome from './components/Users/UserHome';
+import UserDevices from './components/Users/UserDevices';
+import UserDeviceDetails from './components/Users/UserDeviceDetails';
+import UserAccount from './components/Users/UserAccount';
+import DriverAccount from './components/Users/DriverAccount';
+
 
 const theme = createMuiTheme(themeFile);
 
@@ -35,44 +40,80 @@ const App = props => {
   return (
     <MuiThemeProvider theme={theme}>
     <DataTableContext.Provider value={tableIcons}>
+    {(!props.user) ? (
       <Router>
         <Switch>
-          <Route exact path="/" component={HomeLayout} />
+            <Route exact path="/" component={HomeLayout} />
+            <Route exact path="/signin" component={LoginPage} />
+            <Route exact path="/signup" component={SignUpPage} />
+            <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+            <Route component={HomeLayout} />
+        </Switch>
+      </Router>
+    ):(
+      (props.user.is_admin)?(
+        <Router>
+          <Switch>
+            <Route exact path={ROUTES.HOME} render={() => <HomePage userInfo={props.user} /> }/>
+            <Route exact path={ROUTES.USERSLIST} render={() => <UserListPage userInfo={props.user} /> } />
+            <Route exact path={ROUTES.DEVICES} render={() => <DevicePage userInfo={props.user} /> }/>
+            <Route render={() => <HomePage userInfo={props.user} /> }/>
+          </Switch>
+        </Router>
+      ):(
+        <Router>
+          <Switch>
+            <Route exact path="/" component={HomeLayout} />
+            <Route exact path={ROUTES.USERHOME} render={() => <UserHome userInfo={props.user} /> }/>
+            <Route exact path={ROUTES.USERDEVICES} render={() => <UserDevices userInfo={props.user} /> }/>
+            <Route exact path={ROUTES.USERPROFILE} render={() => <UserAccount userInfo={props.user} /> }/>
+            <Route exact path="/vehicle/:id" render={() => <UserDeviceDetails userInfo={props.user} /> }/>
+            <Route exact path="/vehicle/edit/:id" render={() => <DriverAccount userInfo={props.user} /> }/>
+            <Route render={() => <UserHome userInfo={props.user} /> }/>
+          </Switch>
+        </Router>
+      )
+    )}
+    </DataTableContext.Provider>
+    </MuiThemeProvider>
+  ) 
+  
+
+  {/* <Router>
+        <Switch>
           {!props.user ? (
             <Fragment>
+              <Route exact path="/" component={HomeLayout} />
               <Route exact path="/signin" component={LoginPage} />
               <Route exact path="/signup" component={SignUpPage} />
               <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+              <Route component={HomeLayout} />
             </Fragment>
           ): (
             (props.user.is_admin)?(
               <Fragment>
-                <Route exact path={ROUTES.HOME} render={() => <HomePage userInfo={props.user} /> }/>
+                {/* <Route exact path={ROUTES.HOME} render={() => <HomePage userInfo={props.user} /> }/>
                 <Route exact path={ROUTES.USERSLIST} render={() => <UserListPage userInfo={props.user} /> } />
                 <Route exact path={ROUTES.DEVICES} render={() => <DevicePage userInfo={props.user} /> }/>
 
                 <Route render={() => <NotFound userInfo={props.user} /> }/>
                 <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-                <Route path={ROUTES.ADMIN} component={AdminPage} />
-              </Fragment>
-            ):(
-              <Fragment>
-                <Route exact path={ROUTES.USERHOME} render={() => <UserHome userInfo={props.user} /> }/>
-                <Route render={() => <NotFound userInfo={props.user} /> }/>
-              </Fragment>
-            )
-            
-          )}
-          
-          
-          {/* <Navigation user={props.user} /> */}
-            
-        </Switch>
-      </Router>
-    </DataTableContext.Provider>
-    </MuiThemeProvider>
-  ) 
-  
+                <Route path={ROUTES.ADMIN} component={AdminPage} /> 
+                </Fragment>
+                ):(
+                  <Fragment>
+                    
+                    {/* <Route render={() => <NotFound userInfo={props.user} /> }/> 
+                  </Fragment>
+                )
+                
+              )}
+              
+              
+              {/* <Navigation user={props.user} /> 
+                
+            </Switch>
+          </Router> */}
 
   // return (
   //   <DataTableContext.Provider value={tableIcons}>

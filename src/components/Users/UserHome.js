@@ -1,13 +1,9 @@
 import React, {Component, useState, Fragment} from 'react';
 import {withAuthorization, AuthUserContext} from '../session';
-import axios from 'axios';
-import MatrialTable from 'material-table';
-import {DataTableContext} from '../data-table';
 import {Grid} from '@material-ui/core';
-
 import {connect} from 'react-redux'
 import {fetchAllUsers, fetchAllDevices} from '../../actions'
-import Navigation from '../navigation';
+
 
 // For Rejohn need Start
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -15,10 +11,6 @@ import $ from 'jquery';
 import ReactResizeDetector from 'react-resize-detector';
 import Topbar from '../layouts/Topbar';
 import UserSidebar from '../layouts/UserSidebar';
-import TotalUsers from '../layouts/TotalUsers';
-import ActiveUsers from '../layouts/ActiveUsers';
-import InactiveUsers from '../layouts/InactiveUsers';
-import AdminUsers from '../layouts/AdminUsers';
 import TotalDevices from '../layouts/TotalDevices';
 import ActiveDevices from '../layouts/ActiveDevices';
 import InactiveDevices from '../layouts/InactiveDevices';
@@ -97,7 +89,6 @@ class UserHome extends Component {
   };
 
   render () {
-    console.log(this.props,'Home Index')
     // For Rejohn need Start
     const {classes} = this.props;
     console.log(this.props.devices,'...............')
@@ -121,16 +112,16 @@ class UserHome extends Component {
           }
           >
           <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />  
-          {/* <Topbar onSidebarOpen={this.handleSidebarOpen}/> */}
-          {/* <UserSidebar
+          <Topbar onSidebarOpen={this.handleSidebarOpen}/>
+          <UserSidebar
             onClose={this.handleSidebarClose}
             open={this.state.setOpenSidebar}
             variant={ (this.state.isDesktop) ? 'persistent' : 'temporary'  }
             userInfo={this.props.userInfo}
-          /> */}
+          />
           <main className={classes.content}>
             
-            {/* <Grid container className={classes.gridTopMargin} spacing={2}>
+            <Grid container className={classes.gridTopMargin} spacing={2}>
               <Grid item lg={4} sm={4} xl={4} xs={12}>
                 <TotalDevices />
               </Grid>
@@ -140,7 +131,7 @@ class UserHome extends Component {
               <Grid item lg={4} sm={4} xl={4} xs={12}>
                 <InactiveDevices />
               </Grid>
-            </Grid> */}
+            </Grid>
           </main>
         </div>
       </Fragment>

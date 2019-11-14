@@ -1,5 +1,4 @@
 import React, {Component, Fragment} from 'react';
-import axios from 'axios';
 import {Tabs,Tab} from '@material-ui/core'
 import TabPanel from './tab-panel'
 import {connect} from 'react-redux'

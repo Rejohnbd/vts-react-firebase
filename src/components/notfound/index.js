@@ -1,13 +1,7 @@
-import React, {Component, useState, Fragment} from 'react';
-import {withAuthorization, AuthUserContext} from '../session';
-import axios from 'axios';
-import MatrialTable from 'material-table';
-import {DataTableContext} from '../data-table';
+import React, {Component, Fragment} from 'react';
+import {withAuthorization} from '../session';
 import {Grid, Typography} from '@material-ui/core';
-
 import {connect} from 'react-redux'
-import {fetchAllUsers, fetchAllDevices} from '../../actions'
-import Navigation from '../navigation';
 
 // For Rejohn need Start
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -15,13 +9,6 @@ import $ from 'jquery';
 import ReactResizeDetector from 'react-resize-detector';
 import Topbar from '../layouts/Topbar';
 import Sidebar from '../layouts/Sidebar';
-import TotalUsers from '../layouts/TotalUsers';
-import ActiveUsers from '../layouts/ActiveUsers';
-import InactiveUsers from '../layouts/InactiveUsers';
-import AdminUsers from '../layouts/AdminUsers';
-import TotalDevices from '../layouts/TotalDevices';
-import ActiveDevices from '../layouts/ActiveDevices';
-import InactiveDevices from '../layouts/InactiveDevices';
 
 import NotFoundImage from '../../images/notfound.png';
 
@@ -121,7 +108,7 @@ class NotFound extends Component {
             userInfo={this.props.userInfo}
           />
           <main className={classes.content}>
-            {/* <Grid
+            <Grid
                 container
                 justify="center"
                 spacing={2}
@@ -146,7 +133,7 @@ class NotFound extends Component {
                     />
                   </div>
                 </Grid>
-              </Grid> */}
+              </Grid>
           </main>
         </div>
       </Fragment>

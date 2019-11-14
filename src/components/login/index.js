@@ -132,7 +132,10 @@ class LoginBaseForm extends Component{
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
+        console.log(this.props, 'From Login Props')
+        console.log(this.state, 'From Login State')
+        // this.props.history.push(ROUTES.HOME);
+        this.props.history.push(ROUTES.USERHOME);
       })
       .catch(error => {
         this.setState({ error });
@@ -156,23 +159,26 @@ class LoginBaseForm extends Component{
             <TextField
                 required
                 label="Email"
+                name="email"
                 style={{margin:8}}
                 variant="outlined"
-                name="email"
                 value = {email}
                 onChange={this.onChange}/>
             <TextField
                 required
                 label="Password"
                 name="password"
-                value = {password}
-                onChange={this.onChange}
                 style={{margin:8}}
                 variant="outlined"
-                type="password"
-                InputLabelProps={{
-                  shrink: true,
-                }}/>
+                value = {password}
+                onChange={this.onChange}
+                
+                
+                // type="password"
+                // InputLabelProps={{
+                //   shrink: true,
+                // }}
+                />
              <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"

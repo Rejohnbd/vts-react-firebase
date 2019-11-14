@@ -3,7 +3,7 @@ import {withFirebase} from '../firebase'
 import {Link} from 'react-router-dom'
 import * as ROUTES from '../constant/router';
 
-import { TextField, Grid, Paper,Typography, Button, Avatar, Box, Checkbox, FormControlLabel } from '@material-ui/core';
+import { TextField, Grid, Typography, Button, Avatar, Box } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
