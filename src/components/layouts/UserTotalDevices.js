@@ -3,9 +3,8 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import PermDeviceInformationIcon from '@material-ui/icons/PermDeviceInformation';
-import { checkUserActiveDevice, calculatePercentage } from '../../Utills/UsersUtills';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 700
   },
   avatar: {
-    backgroundColor: theme.palette.success.main,
+    backgroundColor: theme.palette.primary.main,
     height: 56,
     width: 56
   },
@@ -33,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center'
   },
   differenceIcon: {
-    color: theme.palette.success.main
+    color: theme.palette.primary.main
   },
   differenceValue: {
     color: theme.palette.success.dark,
@@ -41,12 +40,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ActiveDevices = props => {
+const UserTotalDevices= props => {
   const { className } = props;
   const classes = useStyles();
-  let activeDevices =  checkUserActiveDevice(props.totaldevice);
-  let percent = calculatePercentage(props.totaldevice.length, activeDevices.length);
-
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -63,9 +59,9 @@ const ActiveDevices = props => {
               gutterBottom
               variant="body2"
             >
-              ACITVE DEVICES
+              TOTAL DEVICES
             </Typography>
-            <Typography variant="h3">{activeDevices.length}</Typography>
+            <Typography variant="h3">{props.userTotalDevices.length}</Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
@@ -74,12 +70,12 @@ const ActiveDevices = props => {
           </Grid>
         </Grid>
         <div className={classes.difference}>
-          <ArrowUpwardIcon className={classes.differenceIcon} />
+          <ArrowForwardIcon className={classes.differenceIcon} />
           <Typography
             className={classes.differenceValue}
             variant="body2"
           >
-            {percent}%
+            100%
           </Typography>
           <Typography
             className={classes.caption}
@@ -93,8 +89,8 @@ const ActiveDevices = props => {
   );
 };
 
-ActiveDevices.propTypes = {
+UserTotalDevices.propTypes = {
   className: PropTypes.string
 };
 
-export default ActiveDevices;
+export default UserTotalDevices;

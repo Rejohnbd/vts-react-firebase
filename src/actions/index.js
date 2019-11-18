@@ -8,12 +8,13 @@ import {
   ASSIGN_DEVICE,
   UNASSIGN_DEVICE,
   GET_USER,
-  ADD_USER
+  ADD_USER,
+  USER_DEVICES
 } from "./types";
 import axios from "axios";
 
 const baseUrl = "http://167.71.227.221:2255/api/";
-const usersUrl = baseUrl + "users/";
+export const usersUrl = baseUrl + "users/";
 const devicesURl = baseUrl + "devices/";
 
 const fetchUsersAction = data => {
@@ -26,7 +27,7 @@ const fetchDevicesAction = data => {
 
 const postUserAction = data => {
   return { type: ADD_USER, payload: data };
-}
+};
 
 const updateUserAction = (newData, oldData) => {
   return { type: UPDATE_USER, payload: { newData: newData, oldData: oldData } };
@@ -65,7 +66,14 @@ const unAssignDeviceAction = (newData, oldData) => {
   };
 };
 
-export const registerUsers = (user) => {
+const userDeviceListAction = devices => {
+  return {
+    type: USER_DEVICES,
+    payload: devices
+  };
+};
+
+export const registerUsers = user => {
   return dispatch => {
     return axios
       .post(usersUrl, user)
@@ -74,9 +82,9 @@ export const registerUsers = (user) => {
       })
       .catch(err => {
         throw err;
-      })
-  }
-} 
+      });
+  };
+};
 
 export const fetchAllUsers = () => {
   return dispatch => {
@@ -209,6 +217,20 @@ export const unAssignDevice = device => {
         let newDevice = response.data;
         //newDevice["imei"] = device.imei;
         dispatch(unAssignDeviceAction(newDevice, device));
+      })
+      .catch(err => {
+        throw err;
+      });
+  };
+};
+
+export const getUserDevices = userId => {
+  return dispatch => {
+    axios
+      .get(usersUrl + userId + "/devices")
+      .then(response => {
+        let devices = response.data;
+        dispatch(userDeviceListAction(devices));
       })
       .catch(err => {
         throw err;

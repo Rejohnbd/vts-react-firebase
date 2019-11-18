@@ -17,7 +17,7 @@ import DevicePage from './components/devices';
 import {tableIcons, DataTableContext} from './components/data-table';
 // Rejohn Added
 import themeFile from './theme';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import HomeLayout from './components/Homepage/';
 import NotFound from './components/notfound';
@@ -38,9 +38,10 @@ const App = props => {
   //   'Admin is False'
   // );
   return (
-    <MuiThemeProvider theme={theme}>
-    <DataTableContext.Provider value={tableIcons}>
-    {(!props.user) ? (
+    
+    (!props.user) ? (
+      <MuiThemeProvider theme={theme}>
+       {/* <DataTableContext.Provider value={tableIcons}> */}
       <Router>
         <Switch>
             <Route exact path="/" component={HomeLayout} />
@@ -50,17 +51,25 @@ const App = props => {
             <Route component={HomeLayout} />
         </Switch>
       </Router>
+      {/* </DataTableContext.Provider> */}
+      </MuiThemeProvider>
     ):(
       (props.user.is_admin)?(
+        <MuiThemeProvider theme={theme}>
+        <DataTableContext.Provider value={tableIcons}>
         <Router>
           <Switch>
+            <Route exact path="/" component={HomeLayout} />
             <Route exact path={ROUTES.HOME} render={() => <HomePage userInfo={props.user} /> }/>
             <Route exact path={ROUTES.USERSLIST} render={() => <UserListPage userInfo={props.user} /> } />
             <Route exact path={ROUTES.DEVICES} render={() => <DevicePage userInfo={props.user} /> }/>
             <Route render={() => <HomePage userInfo={props.user} /> }/>
           </Switch>
         </Router>
+        </DataTableContext.Provider>
+        </MuiThemeProvider>
       ):(
+        <MuiThemeProvider theme={theme}>
         <Router>
           <Switch>
             <Route exact path="/" component={HomeLayout} />
@@ -72,10 +81,10 @@ const App = props => {
             <Route render={() => <UserHome userInfo={props.user} /> }/>
           </Switch>
         </Router>
+        </MuiThemeProvider>
       )
-    )}
-    </DataTableContext.Provider>
-    </MuiThemeProvider>
+    )
+    
   ) 
   
 

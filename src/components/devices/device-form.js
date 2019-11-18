@@ -31,7 +31,8 @@ class DeviceForm extends Component {
   };
 
   handleSubmit = e => {
-    this.props.handleSubmit(this.state);
+    console.log(this.props, "Add DEvice");
+    this.props.handleSubmit(this.state, this.props.handleClose);
     // axios
     //   .post ('http://118.67.215.190:8880/api/devices', this.state)
     //   .then (response => {

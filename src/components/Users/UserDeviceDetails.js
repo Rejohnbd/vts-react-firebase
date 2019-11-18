@@ -2,8 +2,8 @@ import React, {Component, useState, Fragment} from 'react';
 import {withAuthorization, AuthUserContext} from '../session';
 import {Grid} from '@material-ui/core';
 import {connect} from 'react-redux'
-import {fetchAllUsers, fetchAllDevices} from '../../actions'
-
+import { getUserDevices } from '../../actions';
+import { findUserDeviceForDetails } from '../../Utills/UsersUtills'
 
 // For Rejohn need Start
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -35,12 +35,13 @@ const styles = (theme) => ({
 });
 // For Rejohn need End
 
+
 class UserHome extends Component {
   constructor (props) {
     super (props);
     this.state = {
-
       // For Rejohn need Start
+      deviceInfo: null,
       setOpenSidebar: true,
       isDesktop: true
       // For Rejohn need End
@@ -76,23 +77,20 @@ class UserHome extends Component {
 
   componentDidMount () {
     const { id } = this.props.match.params;
-    console.log(id, 'Device Details Id')
-
     if(this.props.users.length===0){
-      this.props.getUsers();
-    }
-    if(this.props.devices.length===0){
-      this.props.getAllDevices();
-    }
+      this.props.getUserDevices(this.props.userInfo._id);
+      let deviceById = findUserDeviceForDetails(this.props.devices, id);
+      this.setState({
+        deviceInfo: deviceById
+      })
+    }    
   }
-
-  updateUser = (newData, oldData, resolve) => {
-    this.props.updateUser(newData,oldData,resolve)
-  };
 
   render () {
     // For Rejohn need Start
     const {classes} = this.props;
+    let deviceInfo  = this.state.deviceInfo;
+    
     // For Rejohn need End
     
     return(
@@ -123,10 +121,10 @@ class UserHome extends Component {
           <main className={classes.content}>
             <Grid className={classes.gridTopMargin} container spacing={2}>
               <Grid item md={6} xs={12} >
-                <VehicleInfo />
+                <VehicleInfo deviceInfo={deviceInfo} />
               </Grid>
               <Grid item md={6} xs={12} >
-                <DriverInfo />
+                <DriverInfo deviceInfo={deviceInfo} />
               </Grid>
             </Grid>
           </main>
@@ -147,9 +145,7 @@ const mapStateToProps = (state)=>{
 
 const mapDispatchToProps = (dispatch)=>{
   return {
-    getUsers:()=>dispatch(fetchAllUsers()),
-    // updateUser:(newData, oldData, resolve)=>dispatch(updateUser(newData,oldData,resolve)),
-    getAllDevices:()=>dispatch(fetchAllDevices()),
+    getUserDevices: id => dispatch(getUserDevices(id))
   }
 }
 

@@ -92,10 +92,9 @@ class HomePage extends Component {
   };
 
   render () {
-    console.log(this.props,'Home Index')
     // For Rejohn need Start
     const {classes} = this.props;
-    console.log(this.props.devices,'...............')
+    console.log(this.props.users,'...............')
     // For Rejohn need End
     
     return(
@@ -126,28 +125,28 @@ class HomePage extends Component {
           <main className={classes.content}>
             <Grid container className={classes.gridTopMargin} spacing={2}>
               <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <TotalUsers homePageUser={this.props.users} />
+                <TotalUsers homepageuser={this.props.users} />
               </Grid>
               <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <ActiveUsers homePageUser={this.props.users} />
+                <ActiveUsers homepageuser={this.props.users} />
               </Grid>
               <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <InactiveUsers homePageUser={this.props.users} />
+                <InactiveUsers homepageuser={this.props.users} />
               </Grid>
               <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <AdminUsers homePageUser={this.props.users} />
+                <AdminUsers homepageuser={this.props.users} />
               </Grid>
             </Grid>
             
             <Grid container className={classes.gridTopMargin} spacing={2}>
               <Grid item lg={4} sm={4} xl={4} xs={12}>
-                <TotalDevices />
+                <TotalDevices totaldevice={this.props.devices} />
               </Grid>
               <Grid item lg={4} sm={4} xl={4} xs={12}>
-                <ActiveDevices />
+                <ActiveDevices totaldevice={this.props.devices} />
               </Grid>
               <Grid item lg={4} sm={4} xl={4} xs={12}>
-                <InactiveDevices />
+                <InactiveDevices totaldevice={this.props.devices} />
               </Grid>
             </Grid>
           </main>

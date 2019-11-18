@@ -51,7 +51,7 @@ class Logout extends React.Component {
                 key='Logout'
             >
                 <Button
-                    activeClassName={classes.active}
+                    // activeClassName={classes.active}
                     className={classes.button}
                     onClick={this.logoutHandler}
                     // component={CustomRouterLink}

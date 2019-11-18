@@ -42,7 +42,6 @@ const useStyles = makeStyles(theme => ({
 
 const TotalDevices= props => {
   const { className } = props;
-
   const classes = useStyles();
 
   return (
@@ -63,7 +62,7 @@ const TotalDevices= props => {
             >
               TOTAL DEVICES
             </Typography>
-            <Typography variant="h3">1,600</Typography>
+            <Typography variant="h3">{props.totaldevice.length}</Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>

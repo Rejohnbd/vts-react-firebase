@@ -2,7 +2,7 @@ import React, {Component, useState, Fragment} from 'react';
 import {withAuthorization, AuthUserContext} from '../session';
 import {Grid} from '@material-ui/core';
 import {connect} from 'react-redux'
-import {fetchAllUsers, fetchAllDevices} from '../../actions'
+import { getUserDevices } from '../../actions'
 
 
 // For Rejohn need Start
@@ -11,9 +11,9 @@ import $ from 'jquery';
 import ReactResizeDetector from 'react-resize-detector';
 import Topbar from '../layouts/Topbar';
 import UserSidebar from '../layouts/UserSidebar';
-import TotalDevices from '../layouts/TotalDevices';
-import ActiveDevices from '../layouts/ActiveDevices';
-import InactiveDevices from '../layouts/InactiveDevices';
+import UserTotalDevices from '../layouts/UserTotalDevices';
+import UserActiveDevices from '../layouts/UserActiveDevices';
+import UserInactiveDevices from '../layouts/UserInactiveDevices';
 
 import clsx from 'clsx';
 
@@ -74,13 +74,9 @@ class UserHome extends Component {
   // For Rejohn need End
 
   componentDidMount () {
-    console.log("Sohel Test",this.props)
-
-    if(this.props.users.length===0){
-      this.props.getUsers();
-    }
+  
     if(this.props.devices.length===0){
-      this.props.getAllDevices();
+      this.props.getUserDevices(this.props.userInfo._id);
     }
   }
 
@@ -91,7 +87,6 @@ class UserHome extends Component {
   render () {
     // For Rejohn need Start
     const {classes} = this.props;
-    console.log(this.props.devices,'...............')
     // For Rejohn need End
     
     return(
@@ -123,13 +118,13 @@ class UserHome extends Component {
             
             <Grid container className={classes.gridTopMargin} spacing={2}>
               <Grid item lg={4} sm={4} xl={4} xs={12}>
-                <TotalDevices />
+                <UserTotalDevices userTotalDevices={this.props.devices} />
               </Grid>
               <Grid item lg={4} sm={4} xl={4} xs={12}>
-                <ActiveDevices />
+                <UserActiveDevices userTotalDevices={this.props.devices} />
               </Grid>
               <Grid item lg={4} sm={4} xl={4} xs={12}>
-                <InactiveDevices />
+                <UserInactiveDevices userTotalDevices={this.props.devices} />
               </Grid>
             </Grid>
           </main>
@@ -150,9 +145,7 @@ const mapStateToProps = (state)=>{
 
 const mapDispatchToProps = (dispatch)=>{
   return {
-    getUsers:()=>dispatch(fetchAllUsers()),
-    // updateUser:(newData, oldData, resolve)=>dispatch(updateUser(newData,oldData,resolve)),
-    getAllDevices:()=>dispatch(fetchAllDevices()),
+    getUserDevices: id => dispatch(getUserDevices(id))
   }
 }
 

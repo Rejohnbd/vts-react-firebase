@@ -4,7 +4,8 @@ import {
   DELETE_DEVICE,
   ADD_DEVICE,
   ASSIGN_DEVICE,
-  UNASSIGN_DEVICE
+  UNASSIGN_DEVICE,
+  USER_DEVICES
 } from "../actions/types";
 
 const devicesReducer = (state = [], action) => {
@@ -27,6 +28,8 @@ const devicesReducer = (state = [], action) => {
     let devices = [...state];
     devices[devices.indexOf(action.payload.oldData)] = action.payload.newData;
     return devices;
+  } else if (action.type === USER_DEVICES) {
+    return action.payload;
   } else {
     return state;
   }

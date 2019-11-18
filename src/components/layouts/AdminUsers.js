@@ -6,6 +6,8 @@ import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
 import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
+import { findAdminUsers, calculatePercentage } from '../../Utills/UsersUtills';
+
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100%',
@@ -47,12 +49,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AdminUsers = props => {
-  const { className, ...rest } = props;
+  const { className } = props;
   const classes = useStyles();
-  
+  let adminUsers = findAdminUsers(props.homepageuser);
+  let percent = calculatePercentage(props.homepageuser.length, adminUsers.length);
   return (
     <Card
-      {...rest}
       className={clsx(classes.root, className)}
     >
       <CardContent>
@@ -73,7 +75,7 @@ const AdminUsers = props => {
               color="inherit"
               variant="h3"
             >
-              {props.homePageUser.length}
+              {adminUsers.length}
             </Typography>
           </Grid>
           <Grid item>
@@ -88,7 +90,7 @@ const AdminUsers = props => {
             className={classes.differenceValue}
             variant="body2"
           >
-            70%
+          {percent}%
           </Typography>
           <Typography
             className={classes.caption}

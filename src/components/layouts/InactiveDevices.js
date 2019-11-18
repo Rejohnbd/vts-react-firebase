@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import PermDeviceInformationIcon from '@material-ui/icons/PermDeviceInformation';
+import { checkUserInactiveDevice, calculatePercentage } from '../../Utills/UsersUtills';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,8 +43,9 @@ const useStyles = makeStyles(theme => ({
 
 const InactiveDevices = props => {
   const { className } = props;
-
   const classes = useStyles();
+  let inactiveDevices =  checkUserInactiveDevice(props.totaldevice);
+  let percent = calculatePercentage(props.totaldevice.length, inactiveDevices.length);
 
   return (
     <Card
@@ -63,7 +65,7 @@ const InactiveDevices = props => {
             >
               INACTIVE DEVICES
             </Typography>
-            <Typography variant="h3">1,600</Typography>
+            <Typography variant="h3">{inactiveDevices.length}</Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
@@ -77,7 +79,7 @@ const InactiveDevices = props => {
             className={classes.differenceValue}
             variant="body2"
           >
-            30%
+            {percent}%
           </Typography>
           <Typography
             className={classes.caption}

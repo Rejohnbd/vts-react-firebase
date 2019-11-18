@@ -62,7 +62,7 @@ const TotalUsers = props => {
             >
               TOTAL USERS
             </Typography>
-            <Typography variant="h3">{props.homePageUser.length}</Typography>
+            <Typography variant="h3">{props.homepageuser.length}</Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>

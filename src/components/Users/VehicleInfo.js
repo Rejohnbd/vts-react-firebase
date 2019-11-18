@@ -8,6 +8,7 @@ import {
   CardContent,
   CardActions,
   Divider,
+  Typography,
   Table, TableBody, TableCell, TableRow
 } from '@material-ui/core';
 
@@ -20,45 +21,55 @@ const useStyles = makeStyles(() => ({
 }));
 
 const VehicleInfo = props => {
-  const { className, ...rest } = props;
-
+  const { className} = props;
   const classes = useStyles();
-
-  return (
-    <Card className={clsx(classes.root, className)}>
-        <CardHeader
-          title="Vehicle Information Details"
-        />
-        <Divider />
-        <CardContent>
-          <Table className={classes.table} aria-label="simple table">
-          <TableBody>
-            <TableRow>
-              <TableCell component="th" scope="row">Registration Number</TableCell>
-              <TableCell align="right">Dhaka Metro KA-126353</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">Vehicle Type</TableCell>
-              <TableCell align="right">Car</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">Device Model</TableCell>
-              <TableCell align="right">We Track 2</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">SIM Number</TableCell>
-              <TableCell align="right">017175646533</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">Center Number</TableCell>
-              <TableCell align="right">017175646533</TableCell>
-            </TableRow>
-        </TableBody>
-          </Table>
-        </CardContent>
-        <Divider />
-    </Card>
-  );
+  let renderMarkup = props.deviceInfo==null ? (
+      <Card className={clsx(classes.root, className)}>
+          <CardHeader
+            title="Vehicle Information Details"
+          />
+          <Divider />
+          <CardContent>
+            <Typography>Loading....</Typography>
+          </CardContent>
+      </Card>
+    ): (
+            <Table className={classes.table} aria-label="simple table">
+            <TableBody>
+              <TableRow>
+                <TableCell component="th" scope="row">Registration Number</TableCell>
+                  <TableCell align="right">{props.deviceInfo.registration_number}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell component="th" scope="row">Vehicle Type</TableCell>
+                <TableCell align="right">Car</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell component="th" scope="row">Device Model</TableCell>
+                <TableCell align="right">{props.deviceInfo.device_model}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell component="th" scope="row">SIM Number</TableCell>
+                <TableCell align="right">{props.deviceInfo.device_sim_number}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell component="th" scope="row">Center Number</TableCell>
+                <TableCell align="right">{props.deviceInfo.center_number}</TableCell>
+              </TableRow>
+            </TableBody>
+            </Table>
+    );
+    return (
+      <Card className={clsx(classes.root, className)}>
+          <CardHeader
+            title="Vehicle Information Details"
+          />
+          <Divider />
+          <CardContent>
+            {renderMarkup}
+          </CardContent>
+      </Card>
+    )
 };
 
 VehicleInfo.propTypes = {

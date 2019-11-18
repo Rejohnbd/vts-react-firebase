@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import PermDeviceInformationIcon from '@material-ui/icons/PermDeviceInformation';
+
 import { checkUserActiveDevice, calculatePercentage } from '../../Utills/UsersUtills';
 
 const useStyles = makeStyles(theme => ({
@@ -41,12 +42,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ActiveDevices = props => {
+const UserActiveDevices = props => {
   const { className } = props;
   const classes = useStyles();
-  let activeDevices =  checkUserActiveDevice(props.totaldevice);
-  let percent = calculatePercentage(props.totaldevice.length, activeDevices.length);
-
+  let activeDevices =  checkUserActiveDevice(props.userTotalDevices);
+  let percent = calculatePercentage(props.userTotalDevices.length, activeDevices.length);
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -93,8 +93,8 @@ const ActiveDevices = props => {
   );
 };
 
-ActiveDevices.propTypes = {
+UserActiveDevices.propTypes = {
   className: PropTypes.string
 };
 
-export default ActiveDevices;
+export default UserActiveDevices;

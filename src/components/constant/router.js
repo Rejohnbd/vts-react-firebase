@@ -11,4 +11,4 @@ export const USERSLIST = '/users_list';
 export const USERHOME = '/dashboard';
 export const USERDEVICES = '/user_vehicle';
 export const USERPROFILE = '/profile';
-export const USERVEHICLEDETAIL = '/vehicle_details/';
+// export const USERVEHICLEDETAIL = '/vehicle_details/';

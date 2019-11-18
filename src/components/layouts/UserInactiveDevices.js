@@ -3,9 +3,10 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import PermDeviceInformationIcon from '@material-ui/icons/PermDeviceInformation';
-import { checkUserActiveDevice, calculatePercentage } from '../../Utills/UsersUtills';
+
+import { checkUserInactiveDevice, calculatePercentage } from '../../Utills/UsersUtills';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 700
   },
   avatar: {
-    backgroundColor: theme.palette.success.main,
+    backgroundColor: theme.palette.error.main,
     height: 56,
     width: 56
   },
@@ -33,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center'
   },
   differenceIcon: {
-    color: theme.palette.success.main
+    color: theme.palette.error.main
   },
   differenceValue: {
     color: theme.palette.success.dark,
@@ -41,12 +42,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ActiveDevices = props => {
+const UserInactiveDevices = props => {
   const { className } = props;
   const classes = useStyles();
-  let activeDevices =  checkUserActiveDevice(props.totaldevice);
-  let percent = calculatePercentage(props.totaldevice.length, activeDevices.length);
-
+  let inactiveDevices =  checkUserInactiveDevice(props.userTotalDevices);
+  let percent = calculatePercentage(props.userTotalDevices.length, inactiveDevices.length);
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -63,9 +63,9 @@ const ActiveDevices = props => {
               gutterBottom
               variant="body2"
             >
-              ACITVE DEVICES
+              INACTIVE DEVICES
             </Typography>
-            <Typography variant="h3">{activeDevices.length}</Typography>
+            <Typography variant="h3">{inactiveDevices.length}</Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
@@ -74,7 +74,7 @@ const ActiveDevices = props => {
           </Grid>
         </Grid>
         <div className={classes.difference}>
-          <ArrowUpwardIcon className={classes.differenceIcon} />
+          <ArrowDownwardIcon className={classes.differenceIcon} />
           <Typography
             className={classes.differenceValue}
             variant="body2"
@@ -93,8 +93,8 @@ const ActiveDevices = props => {
   );
 };
 
-ActiveDevices.propTypes = {
+UserInactiveDevices.propTypes = {
   className: PropTypes.string
 };
 
-export default ActiveDevices;
+export default UserInactiveDevices;
