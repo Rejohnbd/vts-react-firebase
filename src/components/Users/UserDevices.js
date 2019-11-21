@@ -182,59 +182,60 @@ class UserDevices extends Component {
                 </div>
                 <CardContent className={classes.cardContent}>
                   <List>
-                    {this.props.devices.map(device=>( 
-                    <Fragment key={device._id}>
-                      <Divider />
-                      <ListItem alighitems="flex-start">
-                        <ListItemAvatar>
-                          <Avatar
-                            className={classes.bigAvatar}
-                            alt="Driver Profile"
-                            src=""
+                    {this.props.devices.map(device => (
+                      <Fragment key={device._id}>
+                        <Divider />
+                        <ListItem alighitems="flex-start">
+                          <ListItemAvatar>
+                            <Avatar
+                              className={classes.bigAvatar}
+                              alt="Driver Profile"
+                              src=""
+                            />
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary="Driver Name: Rejohn"
+                            secondary={
+                              <React.Fragment>
+                                <Typography
+                                  component="span"
+                                  variant="body2"
+                                  className=""
+                                  color="textPrimary"
+                                >
+                                  Registation Number:{" "}
+                                  {device.registration_number}
+                                </Typography>
+                              </React.Fragment>
+                            }
                           />
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary="Driver Name: Rejohn"
-                          secondary={
-                            <React.Fragment>
-                              <Typography
-                                component="span"
-                                variant="body2"
-                                className=""
-                                color="textPrimary"
-                              >
-                                Registation Number: {device.registration_number}
-                              </Typography>
-                            </React.Fragment>
-                          }
-                        />
-  
-                        <ListItemSecondaryAction>
-                          <div>
-                            <Link to={ROUTES.USERHOME}>
-                              <Fab
-                                color="primary"
-                                aria-label="add"
-                                className={classes.fab}
-                              >
-                                <RoomIcon />
-                              </Fab>
-                            </Link>
-                            <Link to={`vehicle/${device._id}`}>
-                              <Fab
-                                color="secondary"
-                                aria-label="edit"
-                                className={classes.fab}
-                              >
-                                <VisibilityIcon />
-                              </Fab>
-                            </Link>
-                          </div>
-                        </ListItemSecondaryAction>
-                      </ListItem>
+
+                          <ListItemSecondaryAction>
+                            <div>
+                              <Link to={`location/${device.id}`}>
+                                <Fab
+                                  color="primary"
+                                  aria-label="view"
+                                  className={classes.fab}
+                                >
+                                  <RoomIcon />
+                                </Fab>
+                              </Link>
+                              <Link to={`vehicle/${device._id}`}>
+                                <Fab
+                                  color="secondary"
+                                  aria-label="details"
+                                  className={classes.fab}
+                                >
+                                  <VisibilityIcon />
+                                </Fab>
+                              </Link>
+                            </div>
+                          </ListItemSecondaryAction>
+                        </ListItem>
                       </Fragment>
                     ))}
-                    
+
                     {/* <Divider />
                     <ListItem alighItems="flex-start">
                       <ListItemAvatar>
@@ -284,7 +285,7 @@ class UserDevices extends Component {
                     </ListItem>
                     <Divider />
                     <ListItem alighItems="flex-start"> */}
-                      {/* <ListItemAvatar>
+                    {/* <ListItemAvatar>
                         <Avatar
                           className={classes.bigAvatar}
                           alt="Driver Profile"

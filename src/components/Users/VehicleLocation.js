@@ -1,9 +1,11 @@
 import React, { Component, useState, Fragment } from "react";
 import { withAuthorization, AuthUserContext } from "../session";
-import { Grid } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import { connect } from "react-redux";
 import { getUserDevices } from "../../actions";
-import { findUserDeviceForDetails } from "../../Utills/UsersUtills";
+
+import firebase from "firebase";
+
 
 // For Rejohn need Start
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -11,10 +13,8 @@ import $ from "jquery";
 import ReactResizeDetector from "react-resize-detector";
 import Topbar from "../layouts/Topbar";
 import UserSidebar from "../layouts/UserSidebar";
-import VehicleInfo from "./VehicleInfo";
-import DriverInfo from "./DriverInfo";
-import ActiveDevices from "../layouts/ActiveDevices";
-import InactiveDevices from "../layouts/InactiveDevices";
+import Location from "../location/Location";
+
 
 import clsx from "clsx";
 
@@ -29,18 +29,33 @@ const styles = theme => ({
   content: {
     height: "100%"
   },
-  gridTopMargin: {
-    marginTop: "20px"
+  paperContent: {
+    marginTop: "20px",
+    margin: "20px",
+    height: "550px"
+  },
+  bigAvatar: {
+    margin: 10,
+    width: 60,
+    height: 60
+  },
+  searchGrid: {
+    paddingLeft: "10px",
+    marginBottom: "10px"
+  },
+  cardContent: {
+    padding: "0px"
   }
 });
 // For Rejohn need End
 
-class UserHome extends Component {
+
+class VehicleLocation extends Component {
   constructor(props) {
     super(props);
     this.state = {
       // For Rejohn need Start
-      deviceInfo: null,
+      deviceData: null,
       setOpenSidebar: true,
       isDesktop: true
       // For Rejohn need End
@@ -75,23 +90,38 @@ class UserHome extends Component {
   // For Rejohn need End
 
   componentDidMount() {
+
+
     const { id } = this.props.match.params;
-    console.log(this.props.match.params);
-    if (this.props.users.length === 0) {
-      this.props.getUserDevices(this.props.userInfo._id);
-      let deviceById = findUserDeviceForDetails(this.props.devices, id);
-      console.log(deviceById);
-      this.setState({
-        deviceInfo: deviceById
-      });
-    }
+    let ref = firebase
+      .database()
+      .ref()
+      .child("devices")
+      .child(id);
+
+    ref.on("child_added", data => {
+      if (data.key === "geo") {
+        let deviceData = data.val();
+        this.setState({
+          deviceData: deviceData
+        });
+      }
+    });
+   
   }
 
   render() {
     // For Rejohn need Start
     const { classes } = this.props;
-    let deviceInfo = this.state.deviceInfo;
-
+    let renderMap =
+      this.state.deviceData === null ? (
+        "Loading...."
+      ) : (
+        <Location
+          data={this.state.deviceData}
+          deviceId={this.props.match.params}
+        />
+      );
     // For Rejohn need End
 
     return (
@@ -122,14 +152,7 @@ class UserHome extends Component {
             userInfo={this.props.userInfo}
           />
           <main className={classes.content}>
-            <Grid className={classes.gridTopMargin} container spacing={2}>
-              <Grid item md={6} xs={12}>
-                <VehicleInfo deviceInfo={deviceInfo} />
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <DriverInfo deviceInfo={deviceInfo} />
-              </Grid>
-            </Grid>
+            <Paper className={classes.paperContent}>{renderMap}</Paper>
           </main>
         </div>
       </Fragment>
@@ -139,19 +162,18 @@ class UserHome extends Component {
 
 const condition = authUser => authUser != null;
 
-const mapStateToProps = state => {
-  return {
-    ...state
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     ...state
+//   };
+// };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUserDevices: id => dispatch(getUserDevices(id))
+    // getUserDevices: id => dispatch(getUserDevices(id))
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withAuthorization(condition)(withStyles(styles)(UserHome)));
+export default connect()(
+  withAuthorization(condition)(withStyles(styles)(VehicleLocation))
+);
