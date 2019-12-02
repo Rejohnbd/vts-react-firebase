@@ -11,7 +11,6 @@ const About = () => {
                         <img className="img-fluid" src={appImage} alt="App Design" />
                     </div>
                     <div className="col-lg-5 col-md-7 about-right">
-                        <h3>What Is In This App?</h3>
                         <h1>Most User Friendly Tracking App</h1>
                         <ul>
                             <li className="d-flex">

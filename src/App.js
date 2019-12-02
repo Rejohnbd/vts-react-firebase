@@ -27,6 +27,13 @@ import VehicleLocation from "./components/Users/VehicleLocation";
 import UserDeviceDetails from "./components/Users/UserDeviceDetails";
 import UserAccount from "./components/Users/UserAccount";
 import DriverAccount from "./components/Users/DriverAccount";
+import {
+  Template,
+  AppScreeenshoot,
+  Question,
+  OurTeam,
+  Testimonial
+} from "./components/webtemplates";
 
 const theme = createMuiTheme(themeFile);
 
@@ -75,6 +82,31 @@ const App = props => {
               exact
               path={ROUTES.DEVICES}
               render={() => <DevicePage userInfo={props.user} />}
+            />
+            <Route
+              exact
+              path={ROUTES.TEMPLATE}
+              render={() => <Template userInfo={props.user} />}
+            />
+            <Route
+              exact
+              path={ROUTES.APPSCREENSHOOT}
+              render={() => <AppScreeenshoot userInfo={props.user} />}
+            />
+            <Route
+              exact
+              path={ROUTES.QUESTION}
+              render={() => <Question userInfo={props.user} />}
+            />
+            <Route
+              exact
+              path={ROUTES.TEAM}
+              render={() => <OurTeam userInfo={props.user} />}
+            />
+            <Route
+              exact
+              path={ROUTES.TESTIMONIAL}
+              render={() => <Testimonial userInfo={props.user} />}
             />
             <Route render={() => <HomePage userInfo={props.user} />} />
           </Switch>
