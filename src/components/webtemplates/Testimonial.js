@@ -203,6 +203,55 @@ class Testimonial extends React.Component {
       })
       .catch(err => console.log(err));
   };
+
+  deleteTestimonialHandler = id => {
+    axios
+      .delete(SERVER_URL + "testimonial/" + id)
+      .then(res => {
+        if (res.data) {
+          axios
+            .get(SERVER_URL + "testimonial")
+            .then(res => {
+              this.setState({ testimonialData: res.data });
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
+  testimonialInactiveHandler = id => {
+    axios
+      .put(SERVER_URL + "testimonial/" + id + "/inactive")
+      .then(res => {
+        if (res.data) {
+          axios
+            .get(SERVER_URL + "testimonial")
+            .then(res => {
+              this.setState({ testimonialData: res.data });
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
+  testimonialActiveHandler = id => {
+    axios
+      .put(SERVER_URL + "testimonial/" + id + "/active")
+      .then(res => {
+        if (res.data) {
+          axios
+            .get(SERVER_URL + "testimonial")
+            .then(res => {
+              this.setState({ testimonialData: res.data });
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
     const { classes } = this.props;
     let testiDatas = this.state.testimonialData;
@@ -275,11 +324,32 @@ class Testimonial extends React.Component {
                           <Button
                             className={classes.uploadButton}
                             color="primary"
-                            variant="text"
+                            variant="contained"
+                            onClick={() =>
+                              this.deleteTestimonialHandler(testiData._id)
+                            }
                           >
-                            Upload picture
+                            Delete
                           </Button>
-                          <Button variant="text">Edit Profile</Button>
+                          {testiData.comment_active_status ? (
+                            <Button
+                              variant="contained"
+                              onClick={() =>
+                                this.testimonialInactiveHandler(testiData._id)
+                              }
+                            >
+                              Inctive
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="contained"
+                              onClick={() =>
+                                this.testimonialActiveHandler(testiData._id)
+                              }
+                            >
+                              Active
+                            </Button>
+                          )}
                         </CardActions>
                       </Card>
                     </Grid>

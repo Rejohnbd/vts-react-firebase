@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   Typography,
-  Avatar,
   Divider,
   CardActions,
   Button,
@@ -12,19 +11,16 @@ import {
   TextField,
   InputLabel,
   Select,
-  MenuItem,
-  IconButton
+  MenuItem
 } from "@material-ui/core";
 import $ from "jquery";
 import ReactResizeDetector from "react-resize-detector";
 import Topbar from "../layouts/Topbar";
 import Sidebar from "../layouts/Sidebar";
-import TagFacesIcon from "@material-ui/icons/TagFaces";
 // Theme
 import withStyles from "@material-ui/core/styles/withStyles";
 import clsx from "clsx";
 import { ToastContainer, toast } from "react-toastify";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import SERVER_URL from "../../config";
 import axios from "axios";
 
@@ -132,6 +128,22 @@ class Question extends React.Component {
     });
   };
 
+  deleteQuestionHandler = id => {
+    axios
+      .delete(SERVER_URL + "question/" + id)
+      .then(res => {
+        if (res.data) {
+          axios
+            .get(SERVER_URL + "question")
+            .then(res => {
+              this.setState({ questionData: res.data });
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   formSubmitHandler = e => {
     e.preventDefault();
     if (this.state.question_text === "") {
@@ -184,9 +196,58 @@ class Question extends React.Component {
       })
       .catch(err => console.log(err));
   };
+  deleteQuestionHandler = id => {
+    axios
+      .delete(SERVER_URL + "question/" + id)
+      .then(res => {
+        if (res.data) {
+          axios
+            .get(SERVER_URL + "question")
+            .then(res => {
+              this.setState({ questionData: res.data });
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
+  questionInactiveHandler = id => {
+    axios
+      .put(SERVER_URL + "question/" + id + "/inactive")
+      .then(res => {
+        if (res.data) {
+          axios
+            .get(SERVER_URL + "question")
+            .then(res => {
+              this.setState({ questionData: res.data });
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
+  questionActiveHandler = id => {
+    axios
+      .put(SERVER_URL + "question/" + id + "/active")
+      .then(res => {
+        if (res.data) {
+          axios
+            .get(SERVER_URL + "question")
+            .then(res => {
+              this.setState({ questionData: res.data });
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
     const { classes } = this.props;
     let questionDatas = this.state.questionData;
+    console.log(questionDatas);
     return (
       <Fragment>
         <div
@@ -240,11 +301,28 @@ class Question extends React.Component {
                         <Button
                           className={classes.uploadButton}
                           color="primary"
-                          variant="text"
+                          variant="contained"
+                          onClick={() => this.deleteQuestionHandler(data._id)}
                         >
-                          Upload picture
+                          Delete
                         </Button>
-                        <Button variant="text">Edit Profile</Button>
+                        {data.question_active_status ? (
+                          <Button
+                            variant="contained"
+                            onClick={() =>
+                              this.questionInactiveHandler(data._id)
+                            }
+                          >
+                            Inctive
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="contained"
+                            onClick={() => this.questionActiveHandler(data._id)}
+                          >
+                            Active
+                          </Button>
+                        )}
                       </Card>
                     </Grid>
                   ))}

@@ -1,12 +1,9 @@
 import React, { Fragment } from "react";
 import {
   Grid,
-  Paper,
   Card,
-  CardActionArea,
   CardHeader,
   CardContent,
-  Typography,
   CardActions,
   Button,
   GridList,
@@ -16,9 +13,9 @@ import {
   TextField,
   Divider,
   Select,
+  Menu,
   MenuItem,
-  InputLabel,
-  FormControl
+  InputLabel
 } from "@material-ui/core";
 import $ from "jquery";
 import ReactResizeDetector from "react-resize-detector";
@@ -28,7 +25,7 @@ import Sidebar from "../layouts/Sidebar";
 import withStyles from "@material-ui/core/styles/withStyles";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-
+import DeleteIcon from "@material-ui/icons/Delete";
 import { ToastContainer, toast } from "react-toastify";
 import "../../../node_modules/react-toastify/dist/ReactToastify.css";
 import SERVER_URL from "../../config";
@@ -175,7 +172,7 @@ class AppScreeenshoot extends React.Component {
     formData.append("image_alt_text", this.state.image_alt_text);
     formData.append("image_active_status", this.state.image_active_status);
     formData.append("image_appscreenshoot", this.state.file_image);
-   
+
     axios
       .post(SERVER_URL + "appscreen", formData)
       .then(res => {
@@ -266,9 +263,11 @@ class AppScreeenshoot extends React.Component {
                           <IconButton
                             aria-label=""
                             // aria-describedby={1}
+                            aria-controls="long-menu"
+                            aria-haspopup="true"
                             type="button"
-                            // onClick={handleClick}
                           >
+                            <MoreVertIcon className={classes.title} />
                             <MoreVertIcon className={classes.title} />
                           </IconButton>
                         }

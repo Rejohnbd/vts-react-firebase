@@ -2759,9 +2759,9 @@
   /* =================================== */
   /*  Download Styles 
   /* =================================== */
-  .download-section {
+  /* .download-section {
     background: url(../img/download-bg.png);
-  }
+  } */
   .download-section p {
     margin-top: 20px;
     margin-bottom: 0px;

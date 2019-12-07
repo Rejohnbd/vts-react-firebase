@@ -111,12 +111,6 @@ class Location extends Component {
 
 const condition = authUser => authUser != null;
 
-const mapDispatchToProps = dispatch => {
-  return {
-    // getUserDevices: id => dispatch(getUserDevices(id))
-  };
-};
-
 export default connect()(
   withAuthorization(condition)(withStyles(styles)(Location))
 );

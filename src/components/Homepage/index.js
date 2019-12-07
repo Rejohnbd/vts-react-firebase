@@ -5,7 +5,7 @@ import About from "./about/About";
 import Feature from "./feature/Feature";
 import Screenshoot from "./screenshoot/Screenshoot";
 import Question from "./question/Question";
-import Overview from "./overview/Overview";
+// import Overview from "./overview/Overview";
 import Testimonial from "./testimonial/Testimonial";
 import Price from "./price/Price";
 import Download from "./download/Download";

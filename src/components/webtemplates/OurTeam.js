@@ -174,7 +174,7 @@ class OurTeam extends React.Component {
               this.setState({ teamData: res.data });
             })
             .catch(err => console.log(err));
-          
+
           this.setState({
             file: null,
             file_image: "",
@@ -191,6 +191,55 @@ class OurTeam extends React.Component {
       })
       .catch(err => console.log(err));
   };
+
+  deleteTeamHandler = id => {
+    axios
+      .delete(SERVER_URL + "team/" + id)
+      .then(res => {
+        if (res.data) {
+          axios
+            .get(SERVER_URL + "team")
+            .then(res => {
+              this.setState({ teamData: res.data });
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
+  teamInactiveHandler = id => {
+    axios
+      .put(SERVER_URL + "team/" + id + "/inactive")
+      .then(res => {
+        if (res.data) {
+          axios
+            .get(SERVER_URL + "team")
+            .then(res => {
+              this.setState({ teamData: res.data });
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
+  teamActiveHandler = id => {
+    axios
+      .put(SERVER_URL + "team/" + id + "/active")
+      .then(res => {
+        if (res.data) {
+          axios
+            .get(SERVER_URL + "team")
+            .then(res => {
+              this.setState({ teamData: res.data });
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
     const { classes } = this.props;
     let teamDatas = this.state.teamData;
@@ -263,11 +312,31 @@ class OurTeam extends React.Component {
                           <Button
                             className={classes.uploadButton}
                             color="primary"
-                            variant="text"
+                            variant="contained"
+                            onClick={() => this.deleteTeamHandler(teamdata._id)}
                           >
-                            Upload picture
+                            Delete
                           </Button>
-                          <Button variant="text">Edit Profile</Button>
+
+                          {teamdata.user_active_status ? (
+                            <Button
+                              variant="contained"
+                              onClick={() =>
+                                this.teamInactiveHandler(teamdata._id)
+                              }
+                            >
+                              Inctive
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="contained"
+                              onClick={() =>
+                                this.teamActiveHandler(teamdata._id)
+                              }
+                            >
+                              Active
+                            </Button>
+                          )}
                         </CardActions>
                       </Card>
                     </Grid>
