@@ -3,15 +3,7 @@ import { NavLink as RouterLink, Link } from "react-router-dom";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/styles";
-import {
-  Divider,
-  List,
-  ListItem,
-  colors,
-  ListItemIcon,
-  ListItemText,
-  Collapse
-} from "@material-ui/core";
+import { Divider, List, ListItem, colors, Collapse } from "@material-ui/core";
 
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
@@ -117,7 +109,7 @@ const SidebarNav = props => {
         onClick={handleClick}
         key="Setting"
       >
-        <Link className={classes.navlink}>
+        <Link className={classes.navlink} to="#">
           <div className={classes.icon}>
             <SettingsIcon />
           </div>

@@ -1,8 +1,12 @@
 import React, { Fragment } from "react";
 import $ from "jquery";
+import SERVER_URL from "../../../config";
+import axios from "axios";
 
 class Footer extends React.Component {
-  state = {};
+  state = {
+    templateData: {}
+  };
 
   componentDidMount() {
     $(window).on("scroll", function() {
@@ -22,6 +26,15 @@ class Footer extends React.Component {
       );
       return false;
     });
+
+    axios
+      .get(SERVER_URL + "template")
+      .then(res => {
+        if (res.data) {
+          this.setState({ templateData: res.data });
+        }
+      })
+      .catch(err => console.log(err));
   }
   getYear = () => {
     let year = new Date();
@@ -43,17 +56,26 @@ class Footer extends React.Component {
                 <br />
                 <ul id="social">
                   <li>
-                    <a target="_blank" href="www.facebook.com">
+                    <a
+                      target="_blank"
+                      href={this.state.templateData.facebook_link}
+                    >
                       <i className="ti-facebook"></i>
                     </a>
                   </li>
                   <li>
-                    <a target="_blank" href="www.facebook.com">
+                    <a
+                      target="_blank"
+                      href={this.state.templateData.twitter_link}
+                    >
                       <i className="ti-twitter"></i>
                     </a>
                   </li>
                   <li>
-                    <a target="_blank" href="www.facebook.com">
+                    <a
+                      target="_blank"
+                      href={this.state.templateData.linkedin_link}
+                    >
                       <i className="ti-linkedin"></i>
                     </a>
                   </li>

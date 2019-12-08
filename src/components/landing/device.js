@@ -4,10 +4,9 @@ import {
   Paper,
   Avatar,
   Typography,
-  Divider,
   IconButton
 } from "@material-ui/core";
-import { Add, Edit, PanoramaFishEye } from "@material-ui/icons";
+import { Edit, PanoramaFishEye } from "@material-ui/icons";
 
 const myStyle = {
   paper: {

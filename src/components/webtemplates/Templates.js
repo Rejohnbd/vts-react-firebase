@@ -95,11 +95,9 @@ class Templates extends React.Component {
   // For Rejohn need End
 
   componentDidMount() {
-    console.log(SERVER_URL);
     axios
       .get(SERVER_URL + "template")
       .then(res => {
-        console.log(res.data);
         this.setState({
           contact_number_one: res.data.contact_number_one,
           contact_number_two: res.data.contact_number_two,

@@ -1,7 +1,21 @@
 import React from "react";
+import SERVER_URL from "../../../config";
+import axios from "axios";
 
 class Contact extends React.Component {
-  state = {};
+  state = {
+    templateData: {}
+  };
+  componentDidMount() {
+    axios
+      .get(SERVER_URL + "template")
+      .then(res => {
+        if (res.data) {
+          this.setState({ templateData: res.data });
+        }
+      })
+      .catch(err => console.log(err));
+  }
   render() {
     return (
       <section className="contact-section padding-top-120" id="contact-section">
@@ -14,22 +28,19 @@ class Contact extends React.Component {
             <div className="col-lg-3 col-md-4 col-sm-6 single-address-col">
               <i className="ti ti-mobile"></i>
               <p>
-                +880-176875479
-                <br /> +880-754791768
+                {this.state.templateData.contact_number_one}
+                <br /> {this.state.templateData.contact_number_two}
               </p>
             </div>
             <div className="col-lg-3 col-md-4 col-sm-6 single-address-col">
               <i className="ti ti-map-alt"></i>
-              <p>
-                1179 Sarah Drive,Lafayette
-                <br /> California 90021
-              </p>
+              <p>{this.state.templateData.contact_address}</p>
             </div>
             <div className="col-lg-3 col-md-4 col-sm-12 single-address-col">
               <i className="ti ti-email"></i>
               <p>
-                info@dopedemo.com
-                <br /> contact@dopedemo.com
+                {this.state.templateData.contact_email_one}
+                <br /> {this.state.templateData.contact_email_two}
               </p>
             </div>
           </div>
