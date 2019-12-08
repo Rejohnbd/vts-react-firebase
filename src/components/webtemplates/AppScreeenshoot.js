@@ -23,8 +23,7 @@ import Topbar from "../layouts/Topbar";
 import Sidebar from "../layouts/Sidebar";
 // Theme
 import withStyles from "@material-ui/core/styles/withStyles";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import PhotoCamera from "@material-ui/icons/VisibilityOff";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { ToastContainer, toast } from "react-toastify";
 import "../../../node_modules/react-toastify/dist/ReactToastify.css";
@@ -199,6 +198,22 @@ class AppScreeenshoot extends React.Component {
       .catch(err => console.log(err));
   };
 
+  deleteScreenshootHandler = id => {
+    axios
+      .delete(SERVER_URL + "appscreen/" + id)
+      .then(res => {
+        if (res.data) {
+          axios
+            .get(SERVER_URL + "appscreen")
+            .then(res => {
+              this.setState({ appScreenData: res.data });
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   // const[anchorEl, setAnchorEl] = React.useState(null);
 
   // const handleClick = event => {
@@ -263,12 +278,14 @@ class AppScreeenshoot extends React.Component {
                           <IconButton
                             aria-label=""
                             // aria-describedby={1}
-                            aria-controls="long-menu"
-                            aria-haspopup="true"
                             type="button"
                           >
-                            <MoreVertIcon className={classes.title} />
-                            <MoreVertIcon className={classes.title} />
+                            <DeleteIcon
+                              onClick={() =>
+                                this.deleteScreenshootHandler(appdata._id)
+                              }
+                              className={classes.title}
+                            />
                           </IconButton>
                         }
                       ></GridListTileBar>
@@ -318,7 +335,7 @@ class AppScreeenshoot extends React.Component {
                           this.state.image_active_status_error ? true : false
                         }
                       >
-                        <MenuItem value="0">Inactive</MenuItem>
+                        {/* <MenuItem value="0">Inactive</MenuItem> */}
                         <MenuItem value="1">Active</MenuItem>
                       </Select>
                     </Grid>

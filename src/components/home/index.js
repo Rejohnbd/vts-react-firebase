@@ -1,48 +1,46 @@
-import React, {Component, Fragment} from 'react';
-import {withAuthorization} from '../session';
-import {Grid} from '@material-ui/core';
-import {connect} from 'react-redux'
-import {fetchAllUsers, fetchAllDevices} from '../../actions'
-
+import React, { Component, Fragment } from "react";
+import { withAuthorization } from "../session";
+import { Grid } from "@material-ui/core";
+import { connect } from "react-redux";
+import { fetchAllUsers, fetchAllDevices } from "../../actions";
 
 // For Rejohn need Start
-import withStyles from '@material-ui/core/styles/withStyles';
-import $ from 'jquery';
-import ReactResizeDetector from 'react-resize-detector';
-import Topbar from '../layouts/Topbar';
-import Sidebar from '../layouts/Sidebar';
-import TotalUsers from '../layouts/TotalUsers';
-import ActiveUsers from '../layouts/ActiveUsers';
-import InactiveUsers from '../layouts/InactiveUsers';
-import AdminUsers from '../layouts/AdminUsers';
-import TotalDevices from '../layouts/TotalDevices';
-import ActiveDevices from '../layouts/ActiveDevices';
-import InactiveDevices from '../layouts/InactiveDevices';
+import withStyles from "@material-ui/core/styles/withStyles";
+import $ from "jquery";
+import ReactResizeDetector from "react-resize-detector";
+import Topbar from "../layouts/Topbar";
+import Sidebar from "../layouts/Sidebar";
+import TotalUsers from "../layouts/TotalUsers";
+import ActiveUsers from "../layouts/ActiveUsers";
+import InactiveUsers from "../layouts/InactiveUsers";
+import AdminUsers from "../layouts/AdminUsers";
+import TotalDevices from "../layouts/TotalDevices";
+import ActiveDevices from "../layouts/ActiveDevices";
+import InactiveDevices from "../layouts/InactiveDevices";
 
-import clsx from 'clsx';
+import clsx from "clsx";
 
-const styles = (theme) => ({
+const styles = theme => ({
   root: {
-    paddingTop: '56px',
-    height: '100%',
+    paddingTop: "56px",
+    height: "100%"
   },
   shiftContent: {
     paddingLeft: 240
   },
   content: {
-    height: '100%'
+    height: "100%"
   },
   gridTopMargin: {
-    marginTop: '20px'
+    marginTop: "20px"
   }
 });
 // For Rejohn need End
 
 class HomePage extends Component {
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
     this.state = {
-
       // For Rejohn need Start
       setOpenSidebar: true,
       isDesktop: true
@@ -53,73 +51,75 @@ class HomePage extends Component {
   // For Rejohn need Start
   onResize = () => {
     let winWidth = $(window).width();
-    if(winWidth < 1280){
-        this.setState({
-          isDesktop: false
-        })
-    }else {
-         this.setState({
-          isDesktop: true
-         })
+    if (winWidth < 1280) {
+      this.setState({
+        isDesktop: false
+      });
+    } else {
+      this.setState({
+        isDesktop: true
+      });
     }
-  }
- 
+  };
+
   handleSidebarOpen = () => {
     this.setState({
       setOpenSidebar: true
-    })
+    });
   };
 
   handleSidebarClose = () => {
     this.setState({
       setOpenSidebar: false
-    })
+    });
   };
   // For Rejohn need End
 
-  componentDidMount () {
-    console.log("Sohel Test",this.props)
-    if(this.props.users.length===0){
+  componentDidMount() {
+    // console.log("Sohel Test",this.props)
+    if (this.props.users.length === 0) {
       this.props.getUsers();
     }
-    if(this.props.devices.length===0){
+    if (this.props.devices.length === 0) {
       this.props.getAllDevices();
     }
   }
 
   updateUser = (newData, oldData, resolve) => {
-    this.props.updateUser(newData,oldData,resolve)
+    this.props.updateUser(newData, oldData, resolve);
   };
 
-  render () {
+  render() {
     // For Rejohn need Start
-    const {classes} = this.props;
-    console.log(this.props.users,'...............')
+    const { classes } = this.props;
+    // console.log(this.props.users,'...............')
     // For Rejohn need End
-    
-    return(
+
+    return (
       <Fragment>
-          <div
-            className={
-              `${this.state.isDesktop? (
-                clsx({
+        <div
+          className={`${
+            this.state.isDesktop
+              ? clsx({
                   [classes.root]: true,
                   [classes.shiftContent]: true
                 })
-              ): (
-                clsx({
+              : clsx({
                   [classes.root]: true,
                   [classes.shiftContent]: false
                 })
-              )}`
-          }
-          >
-          <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />  
-          <Topbar onSidebarOpen={this.handleSidebarOpen}/>
+          }`}
+        >
+          <ReactResizeDetector
+            handleWidth
+            handleHeight
+            onResize={this.onResize}
+          />
+          <Topbar onSidebarOpen={this.handleSidebarOpen} />
           <Sidebar
             onClose={this.handleSidebarClose}
             open={this.state.setOpenSidebar}
-            variant={ (this.state.isDesktop) ? 'persistent' : 'temporary'  }
+            variant={this.state.isDesktop ? "persistent" : "temporary"}
             userInfo={this.props.userInfo}
           />
           <main className={classes.content}>
@@ -137,7 +137,7 @@ class HomePage extends Component {
                 <AdminUsers homepageuser={this.props.users} />
               </Grid>
             </Grid>
-            
+
             <Grid container className={classes.gridTopMargin} spacing={2}>
               <Grid item lg={4} sm={4} xl={4} xs={12}>
                 <TotalDevices totaldevice={this.props.devices} />
@@ -152,7 +152,6 @@ class HomePage extends Component {
           </main>
         </div>
       </Fragment>
-    
     );
 
     // Sohel Sir Code
@@ -187,17 +186,20 @@ class HomePage extends Component {
 
 const condition = authUser => authUser != null;
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = state => {
   return {
     ...state
-  }
-}
+  };
+};
 
-const mapDispatchToProps = (dispatch)=>{
+const mapDispatchToProps = dispatch => {
   return {
-    getUsers:()=>dispatch(fetchAllUsers()),
-    getAllDevices:()=>dispatch(fetchAllDevices()),
-  }
-}
+    getUsers: () => dispatch(fetchAllUsers()),
+    getAllDevices: () => dispatch(fetchAllDevices())
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchToProps)(withAuthorization (condition) (withStyles(styles)(HomePage)));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withAuthorization(condition)(withStyles(styles)(HomePage)));

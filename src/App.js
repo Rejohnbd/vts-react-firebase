@@ -38,7 +38,7 @@ import {
 const theme = createMuiTheme(themeFile);
 
 const App = props => {
-  console.log(props.user, " From App");
+  // console.log(props.user, " From App");
   // const renderContent = (props.user.is_admin) ? (
   //   'Admin is True'
   // ) : (

@@ -129,11 +129,18 @@ class DeviceForm extends Component {
             }}
             fullWidth
           >
-            <option value={0}>Car</option>
+            {/* <option value={0}>Car</option>
             <option value={1}>Bike</option>
             <option value={2}>Bus</option>
             <option value={3}>Truck</option>
-            <option value={4}>CNG</option>
+            <option value={4}>CNG</option> */}
+            <option value={1}>Car</option>
+            <option value={2}>Bike</option>
+            <option value={3}>Micro-Bus</option>
+            <option value={4}>Bus</option>
+            <option value={5}>Truck</option>
+            <option value={6}>CNG</option>
+            <option value={7}>Ship</option>
           </Select>
         </DialogContent>
         <DialogActions>

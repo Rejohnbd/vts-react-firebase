@@ -247,7 +247,7 @@ class Question extends React.Component {
   render() {
     const { classes } = this.props;
     let questionDatas = this.state.questionData;
-    console.log(questionDatas);
+
     return (
       <Fragment>
         <div
